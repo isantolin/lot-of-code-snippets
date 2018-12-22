@@ -20,6 +20,7 @@ wget https://repo.skype.com/latest/skypeforlinux-64.deb
 wget -q -O - https://repo.skype.com/data/SKYPE-GPG-KEY | sudo apt-key add -
 sudo dpkg --install skypeforlinux-64.deb
 rm skypeforlinux-64.deb
+sudo apt -y install -f
 
 sudo add-apt-repository ppa:webupd8team/java -y
 
