@@ -66,6 +66,10 @@ wget https://github.com/nette/tester/releases/download/v2.1.0/tester.phar
 sudo chmod a+x tester.phar
 sudo mv tester.phar /usr/bin/tester
 
+wget https://github.com/phpstan/phpstan/releases/download/0.10.6/phpstan.phar
+sudo chmod a+x phpstan.phar
+sudo mv phpstan.phar /usr/bin/phpstan.phar
+
 wget http://codeception.com/codecept.phar
 sudo chmod +x codecept.phar
 sudo mv codecept.phar /usr/bin/codecept.phar
