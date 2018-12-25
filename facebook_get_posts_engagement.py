@@ -12,7 +12,7 @@ profile = graph.get_object(user)
 until = datetime.today()
 since = datetime.today() - timedelta(days=1)
 
-header = [u'permalink_url', u'message', u'likes_total_count', u'wow_total_count', u'loves_total_count', u'comments_total_count', u'created_time']
+header = [u'message', u'likes_total_count', u'wow_total_count', u'loves_total_count', u'comments_total_count', u'created_time']
 dfPosts = pd.DataFrame(columns=header)
 
 for days in range(1,days):
@@ -20,7 +20,7 @@ for days in range(1,days):
     
     for item in content['data']:
         if 'message' in item.keys():
-            dfPosts.loc[len(dfPosts)] = [item['permalink_url'], item['message'], item['like']['summary']['total_count'], item['wow']['summary']['total_count'], item['love']['summary']['total_count'], item['comments']['summary']['total_count'], item['created_time']]
+            dfPosts.loc[item['id']] = [item['message'], item['like']['summary']['total_count'], item['wow']['summary']['total_count'], item['love']['summary']['total_count'], item['comments']['summary']['total_count'], item['created_time']]
     
     time.sleep(25)
 
