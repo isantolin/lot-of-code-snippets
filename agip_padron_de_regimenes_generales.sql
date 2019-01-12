@@ -39,7 +39,7 @@ CREATE TABLE `AgipRegistro` (
   `AlicuotaRetencion` float NOT NULL,
   `NroGrupoPercepcion` int(2) NOT NULL,
   `NroGrupoRetencion` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
