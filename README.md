@@ -28,6 +28,6 @@ AFIP ETL Scripts related to "Constancia de Inscripcion" datasets
  1. pip3 install sqlalchemy --upgrade --pre
  2. pip3 install python-twitter --upgrade --pre
  3. pip3 install pandas --upgrade --pre 
- 4. Create a Twitter app on apps.twitter.com
+ 4. Create a Twitter app on https://developer.twitter.com/en/apps
  5. Get Access token using the tool python-twitter/get_access_token.py
  6. import "agip_padron_de_regimenes_generales.sql" file
