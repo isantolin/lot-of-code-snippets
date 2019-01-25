@@ -1,7 +1,7 @@
 #!/bin/bash
 #Instalar Driver NVIDIA
-wget -q https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_18.10_standard/Release.key -O- | sudo apt-key add -
-sudo apt-add-repository 'deb https://download.opensuse.org/repositories/Emulators:/Wine:/Debian/Ubuntu_18.10_standard ./'
+wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
+sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -sc) main"
 
 sudo echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
 wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
