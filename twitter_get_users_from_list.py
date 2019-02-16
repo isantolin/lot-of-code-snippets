@@ -19,7 +19,7 @@ TWITTER_DELAY_ON_RATE_LIMIT = 930
 
 engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
-account_activity = ['id','screen_name','list_slug','last_activity']
+account_activity = ['id','screen_name','list_slug','created_at','last_activity']
 df_accounts = pd.DataFrame(columns=account_activity)
 
 api = Api(TWITTER_CONSUMER_API_KEY, TWITTER_CONSUMER_API_SECRET_KEY, TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
@@ -55,7 +55,8 @@ for list in lists:
         else:
             last_activity = datetime.strptime(y.status.created_at,'%a %b %d %H:%M:%S +0000 %Y')
         
-        df_accounts.loc[len(df_accounts)] = [y.id, y.screen_name, list.slug, last_activity]
+        created_at = datetime.strptime(y.created_at,'%a %b %d %H:%M:%S +0000 %Y')
+        df_accounts.loc[len(df_accounts)] = [y.id, y.screen_name, list.slug, created_at,last_activity]
 
 pd.to_numeric(df_accounts['id'], errors='coerce')
 df_accounts.set_index('id', inplace=True)
