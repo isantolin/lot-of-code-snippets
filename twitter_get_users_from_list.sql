@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: 11-Out-2018 às 20:07
--- Versão do servidor: 10.1.21-MariaDB
--- PHP Version: 5.6.30
+-- Host: localhost:3306
+-- Generation Time: Feb 17, 2019 at 02:21 AM
+-- Server version: 5.7.25-0ubuntu0.18.10.2
+-- PHP Version: 7.2.15-0ubuntu0.18.10.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,13 +23,14 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `accounts`
+-- Table structure for table `accounts`
 --
 
 CREATE TABLE `accounts` (
   `id` bigint(11) UNSIGNED NOT NULL,
   `screen_name` varchar(255) NOT NULL,
   `list_slug` varchar(25) NOT NULL,
+  `created_at` datetime NOT NULL,
   `last_activity` datetime DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
