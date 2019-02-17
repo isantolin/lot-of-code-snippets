@@ -31,3 +31,12 @@ AFIP ETL Scripts related to "Constancia de Inscripcion" datasets
  4. Create a Twitter app on https://developer.twitter.com/en/apps
  5. Get Access token using the tool python-twitter/get_access_token.py
  6. import "agip_padron_de_regimenes_generales.sql" file
+
+## fotolog_get_contents_scrap.py ##
+
+ Fotolog Webscraper 
+ 1. pip3 install sqlalchemy --upgrade --pre
+ 2. pip3 install pandas --upgrade --pre 
+ 3. pip3 install python-magic --upgrade --pre 
+ 4. pip3 install beautifulsoup4 --upgrade --pre 
+ 5. import "fotolog_get_contents_scrap.sql" file
