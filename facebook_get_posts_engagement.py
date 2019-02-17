@@ -3,12 +3,13 @@ import time
 from datetime import datetime, timedelta
 import pandas as pd
 
+#Create page access Token
 accessToken = '_'
-user = '_'
-days = 10
+days = 90
+throttle = 1
 
 graph = GraphAPI(accessToken)
-profile = graph.get_object(user)
+profile = graph.get_object('me')
 until = datetime.today()
 since = datetime.today() - timedelta(days=1)
 
@@ -22,7 +23,7 @@ for days in range(1,days):
         if 'message' in item.keys():
             dfPosts.loc[item['id']] = [item['message'], item['like']['summary']['total_count'], item['wow']['summary']['total_count'], item['love']['summary']['total_count'], item['comments']['summary']['total_count'], item['created_time']]
     
-    time.sleep(25)
+    time.sleep(throttle)
 
     until = until - timedelta(days=1)
     since = since - timedelta(days=1)
