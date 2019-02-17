@@ -4,7 +4,6 @@ import dateutil.parser as parser
 import os
 from urllib.parse import urlparse
 from magic import from_buffer
-import sys
 import pandas as pd
 import sqlalchemy
 
