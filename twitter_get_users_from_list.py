@@ -4,6 +4,7 @@ from twitter import Api, TwitterError
 import pandas as pd
 import sqlalchemy
 from datetime import datetime
+from sqlalchemy.dialects import mysql
 
 DB_HOST = "localhost"
 DB_USER = "_"
@@ -63,4 +64,11 @@ df_accounts.set_index('id', inplace=True)
 df_accounts.drop_duplicates(keep=False, inplace=True)
 pd.to_datetime(df_accounts['last_activity'], errors='coerce')
 
-df_accounts.to_sql('accounts', con=engine, if_exists='append')
+dtype={'id': sqlalchemy.dialects.mysql.BIGINT(unsigned=True), 
+       'screen_name': sqlalchemy.types.VARCHAR(length=16),
+       'list_slug': sqlalchemy.types.VARCHAR(length=25),
+       'created_at': sqlalchemy.types.DATE(),
+       'last_activity': sqlalchemy.types.DATE(),
+}
+
+df_accounts.to_sql('accounts', con=engine, if_exists='append', dtype=dtype)
