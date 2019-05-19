@@ -83,4 +83,19 @@ df = df.replace(r'^\s*$', np.nan, regex=True)
 df.dropna(subset=['RazonSocial'], inplace=True)
 
 engine = sqlalchemy.create_engine("mysql+mysqldb://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
-df.to_sql('AgipRegistro', con=engine, if_exists='append')
+
+dtype={'CUIT': sqlalchemy.dialects.mysql.BIGINT(unsigned=True), 
+       'RazonSocial': sqlalchemy.types.VARCHAR(length=170),
+       'FechaDePublicacion': sqlalchemy.types.DATE(),
+       'FechaVigenciaDesde': sqlalchemy.types.DATE(),
+       'FechaVigenciaHasta': sqlalchemy.types.DATE(),
+       'TipoConstanciaInscripcion': sqlalchemy.types.VARCHAR(length=1),
+       'MarcaAltaSujeto': sqlalchemy.types.VARCHAR(length=1),
+       'MarcaAlicuota': sqlalchemy.types.VARCHAR(length=1),   
+       'AlicuotaPercepcion': sqlalchemy.types.FLOAT(),
+       'AlicuotaRetencion':  sqlalchemy.types.FLOAT(),
+       'NroGrupoPercepcion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
+       'NroGrupoRetencion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
+       }
+
+df.to_sql('AgipRegistro', con=engine, if_exists='append', dtype=dtype)
