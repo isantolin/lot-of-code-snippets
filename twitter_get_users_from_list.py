@@ -65,8 +65,8 @@ df_accounts.drop_duplicates(keep=False, inplace=True)
 pd.to_datetime(df_accounts['last_activity'], errors='coerce')
 
 dtype={'id': sqlalchemy.dialects.mysql.BIGINT(unsigned=True), 
-       'screen_name': sqlalchemy.types.VARCHAR(length=16),
-       'list_slug': sqlalchemy.types.VARCHAR(length=25),
+       'screen_name': sqlalchemy.types.VARCHAR(length=16), # https://help.twitter.com/en/managing-your-account/twitter-username-rules
+       'list_slug': sqlalchemy.types.VARCHAR(length=25), # https://help.twitter.com/en/using-twitter/twitter-lists-not-working
        'created_at': sqlalchemy.types.DATE(),
        'last_activity': sqlalchemy.types.DATE(),
 }
