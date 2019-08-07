@@ -66,7 +66,7 @@ wget https://github.com/nette/tester/releases/download/v2.2.0/tester.phar
 sudo chmod a+x tester.phar
 sudo mv tester.phar /usr/bin/tester
 
-wget https://github.com/phpstan/phpstan/releases/download/0.11.5/phpstan.phar
+wget https://github.com/phpstan/phpstan/releases/download/0.11.12/phpstan.phar
 sudo chmod a+x phpstan.phar
 sudo mv phpstan.phar /usr/bin/phpstan.phar
 
