@@ -2,8 +2,6 @@
 # TODO: Instalacion NVIDIA
 #- Refresh de Cache una vez por día
 #- Java
-#- Habilitar todos los repositorios
-#- Impresora EPSON
 
 dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
 dnf install winehq-devel
@@ -14,6 +12,7 @@ name=Webmin Distribution Neutral
 mirrorlist=https://download.webmin.com/download/yum/mirrorlist
 enabled=1
 gpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
+
 dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 sudo dnf install https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm
@@ -24,6 +23,9 @@ sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
 
 sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+sudo dnf install https://download3.ebz.epson.net/dsc/f/03/00/09/76/14/ab1eea2026fa53856550fd626f534a7dcb0e6e42/epson-inkjet-printer-escpr-1.7.2-1lsb3.2.x86_64.rpm
+sudo dnf install https://download3.ebz.epson.net/dsc/f/03/00/09/76/16/7a70c5e4e0f5a9e168c6f0228818a23794bbcb48/epson-printer-utility-1.1.0-1lsb3.2.x86_64.rpm
 
 sudo dnf -y install httpd
 sudo systemctl start httpd
