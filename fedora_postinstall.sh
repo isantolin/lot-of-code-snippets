@@ -14,6 +14,7 @@ name=Webmin Distribution Neutral
 mirrorlist=https://download.webmin.com/download/yum/mirrorlist
 enabled=1
 gpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
+dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 sudo dnf install https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm
 sudo dnf install https://go.skype.com/skypeforlinux-64.rpm
@@ -37,6 +38,8 @@ echo "Inserte Password MySQL: "
 read password
 
 sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password';"
+
+sudo dnf --enablerepo=*
 sudo dnf update
 
 curl https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
