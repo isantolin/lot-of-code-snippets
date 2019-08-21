@@ -1,5 +1,5 @@
 #!/bin/bash
-# TODO: Instalacion NVIDIA
+# TODO: Instalacion NVIDIA - https://acrelinux.org/ativando-o-nvidia-optimus-no-fedora/
 #- Refresh de Cache una vez por día
 #- Java
 
