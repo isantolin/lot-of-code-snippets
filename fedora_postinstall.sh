@@ -78,6 +78,10 @@ wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 
+sudo dnf install -y gcc-c++ make
+curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+sudo dnf install -y nodejs
+
 sudo npm install -g npm@latest
 sudo npm install --global gulp grunt karma phonegap bower express-generator cordova
 # /usr/share/X11/xorg.conf.d/*
