@@ -32,7 +32,7 @@ sudo systemctl start httpd
 sudo systemctl enable httpd
 sudo firewall-cmd --add-service={http,https} --permanent
 sudo firewall-cmd --reload
-sudo dnf -y install php php-cli php-php-gettext php-mbstring php-mcrypt php-mysqlnd php-pear php-curl php-gd php-xml php-bcmath php-zip mariadb-server
+sudo dnf -y install php php-cli php-php-gettext php-mbstring php-mcrypt php-mysqlnd php-pear php-curl php-gd php-xml php-bcmath php-zip mariadb-server cups-pdf cups-lpd
 sudo systemctl start mariadb
 sudo systemctl enable mariadb
 sudo mysql_secure_installation
@@ -41,7 +41,7 @@ read password
 
 sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password';"
 
-sudo dnf --enablerepo=*
+sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
 sudo dnf update
 
 curl https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
