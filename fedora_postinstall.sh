@@ -49,7 +49,7 @@ sudo chmod a+x php-cs-fixer
 sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 
 wget https://get.symfony.com/cli/installer -O - | bash
-sudo mv /home/$USER/.symfony/bin/symfony /usr/local/bin/symfony
+mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
 wget https://github.com/atoum/atoum/releases/download/3.3.0/atoum.phar
 sudo chmod a+x atoum.phar
