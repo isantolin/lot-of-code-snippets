@@ -17,7 +17,7 @@ dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 sudo dnf install https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm
 sudo dnf install https://go.skype.com/skypeforlinux-64.rpm
-sudo dnf install webmin
+sudo dnf install webmin samba-winbind
 
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
