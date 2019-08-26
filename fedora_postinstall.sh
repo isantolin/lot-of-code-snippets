@@ -4,6 +4,7 @@
 #- Java (No funciona Validación)
 #- Simplificar Logica de Java
 #- Agregar Color Remark de Consola (Fedy)
+#- Agregar gstreamer1-*
 #- Agregar Netbeans
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
