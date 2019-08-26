@@ -1,8 +1,10 @@
 #!/bin/bash
 # TODO: Instalacion NVIDIA - https://acrelinux.org/ativando-o-nvidia-optimus-no-fedora/
 #- Refresh de Cache una vez por día
-#- Java
-# General Configs
+#- Java (No funciona Validación)
+#- Simplificar Logica de Java
+#- Agregar Color Remark de Consola (Fedy)
+#- Agregar Netbeans
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
 
@@ -19,7 +21,8 @@ dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 # Other repository and external packages install
 curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
-sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/14/ab1eea2026fa53856550fd626f534a7dcb0e6e42/epson-inkjet-printer-escpr-1.7.2-1lsb3.2.x86_64.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/16/7a70c5e4e0f5a9e168c6f0228818a23794bbcb48/epson-printer-utility-1.1.0-1lsb3.2.x86_64.rpm https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm
+sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/14/ab1eea2026fa53856550fd626f534a7dcb0e6e42/epson-inkjet-printer-escpr-1.7.2-1lsb3.2.x86_64.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/16/7a70c5e4e0f5a9e168c6f0228818a23794bbcb48/epson-printer-utility-1.1.0-1lsb3.2.x86_64.rpm https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm
+sudo dnf -y install rpmfusion-free-release-tainted
 
 #JDK Install
 CACHEDIR="/var/cache/fedy/jdk"
@@ -170,8 +173,8 @@ fi
 
 # Update to install repository packages
 sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
-sudo dnf update
-sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-mysqlnd php-pear php-curl php-gd php-xml php-bcmath php-zip mariadb-server cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar flash-plugin alsa-plugins-pulseaudio libcurl flash-player-ppapi lpf-mscore-fonts
+sudo dnf -y update
+sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-mysqlnd php-pear php-curl php-gd php-xml php-bcmath php-zip mariadb-server cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar flash-plugin alsa-plugins-pulseaudio libcurl flash-player-ppapi lpf-mscore-fonts mariadb mariadb-server
 
 # Lamp Configuration
 sudo systemctl start httpd
