@@ -6,6 +6,14 @@
 #- Agregar Color Remark de Consola (Fedy)
 #- Agregar gstreamer1-*
 #- Agregar Netbeans
+
+# Get Arch
+if [[ "$(uname -m)" = "x86_64" ]]; then
+    ARCH="x64"
+else
+    ARCH="x86"
+fi
+
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
 
@@ -27,13 +35,6 @@ sudo dnf -y install rpmfusion-free-release-tainted
 
 #JDK Install
 CACHEDIR="/var/cache/fedy/jdk"
-
-if [[ "$(uname -m)" = "x86_64" ]]; then
-    ARCH="x64"
-else
-    ARCH="x86"
-fi
-
 mkdir -p "$CACHEDIR"
 cd "$CACHEDIR"
 
@@ -140,13 +141,6 @@ fi
 
 # JRE Install
 CACHEDIR="/var/cache/fedy/jre"
-
-if [[ "$(uname -m)" = "x86_64" ]]; then
-    ARCH="x64"
-else
-    ARCH="x86"
-fi
-
 mkdir -p "$CACHEDIR"
 cd "$CACHEDIR"
 
