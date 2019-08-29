@@ -16,6 +16,8 @@ fi
 
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
+sudo echo "fastestmirror=true" >> /etc/dnf/dnf.conf
+sudo echo "deltarpm=true" >> /etc/dnf/dnf.conf
 
 #Repository Add
 dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
