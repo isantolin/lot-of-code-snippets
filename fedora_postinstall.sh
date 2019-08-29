@@ -31,8 +31,11 @@ dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 # Other repository and external packages install
 curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
-sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/14/ab1eea2026fa53856550fd626f534a7dcb0e6e42/epson-inkjet-printer-escpr-1.7.2-1lsb3.2.x86_64.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/16/7a70c5e4e0f5a9e168c6f0228818a23794bbcb48/epson-printer-utility-1.1.0-1lsb3.2.x86_64.rpm https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_x86_64.rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm
+sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/14/ab1eea2026fa53856550fd626f534a7dcb0e6e42/epson-inkjet-printer-escpr-1.7.2-1lsb3.2.$(uname -m).rpm https://download3.ebz.epson.net/dsc/f/03/00/09/76/16/7a70c5e4e0f5a9e168c6f0228818a23794bbcb48/epson-printer-utility-1.1.0-1lsb3.2.$(uname -m).rpm https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_$(uname -m).rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm
 sudo dnf -y install rpmfusion-free-release-tainted
+#Scanner Added
+wget -c https://download2.ebz.epson.net/imagescanv3/fedora/latest1/rpm/$ARCH/imagescan-bundle-fedora-$(rpm -E %fedora)-3.59.2.$ARCH.rpm.tar.gz -O - | tar -xz
+sudo sh ~/imagescan-bundle-fedora-$(rpm -E %fedora)-3.59.2.$ARCH.rpm/install.sh
 
 #JDK Install
 CACHEDIR="/var/cache/fedy/jdk"
