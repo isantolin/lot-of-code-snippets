@@ -188,6 +188,7 @@ echo "Inserte Password MySQL: "
 read password
 
 sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password USING '$password';"
+sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
 
 # Web Stuff related to Netbeans
 curl https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
