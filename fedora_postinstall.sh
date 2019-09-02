@@ -225,6 +225,6 @@ chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 
 sudo npm install -g npm@latest
-sudo npm install --global gulp grunt karma phonegap bower express-generator cordova
+sudo npm install --global gulp grunt karma phonegap bower express-generator cordova less sass
 # /usr/share/X11/xorg.conf.d/*
 sudo pip3 install pip --upgrade
