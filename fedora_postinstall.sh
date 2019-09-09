@@ -189,6 +189,9 @@ sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_na
 sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
 
 # Web Stuff related to Netbeans
+sudo curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+
 wget -O phpunit https://phar.phpunit.de/phpunit-8.phar
 sudo mv phpunit /usr/local/bin/phpunit
 sudo chmod -x /usr/local/bin/phpunit
