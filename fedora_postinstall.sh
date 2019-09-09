@@ -189,6 +189,9 @@ sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_na
 sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
 
 # Web Stuff related to Netbeans
+sudo pear channel-discover pear.phing.info
+sudo pear install phing/phing
+
 curl https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
 sudo chmod a+x php-cs-fixer
 sudo mv php-cs-fixer /usr/bin/php-cs-fixer
