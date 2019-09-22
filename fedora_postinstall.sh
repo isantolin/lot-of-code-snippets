@@ -43,6 +43,10 @@ sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs 
 # TODO: epson-inkjet-printer-escpr epson-printer-utility
 sudo akmods --force
 
+# Xorg --> Wayland
+sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
+sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
+
 # Lamp Configuration
 sudo systemctl start httpd
 sudo systemctl enable httpd
