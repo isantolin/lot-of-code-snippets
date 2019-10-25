@@ -41,12 +41,12 @@ df["fecha_registro"] = pd.to_datetime(df["fecha_registro"], infer_datetime_forma
 engine = sqlalchemy.create_engine("mysql+mysqldb://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
 dtype = {'tipo': sqlalchemy.types.CHAR(),
-       'dominio': sqlalchemy.types.VARCHAR(length=170),
-       'zona': sqlalchemy.types.VARCHAR(length=170),
-       'id_dominio': sqlalchemy.types.INT(),
-       'titular': sqlalchemy.types.VARCHAR(length=170),
-       'tipo_doc': sqlalchemy.types.VARCHAR(length=8),
-       'fecha_registro': sqlalchemy.types.DATETIME(timezone=False)
-       }
+         'dominio': sqlalchemy.types.VARCHAR(length=170),
+         'zona': sqlalchemy.types.VARCHAR(length=170),
+         'id_dominio': sqlalchemy.types.INT(),
+         'titular': sqlalchemy.types.VARCHAR(length=170),
+         'tipo_doc': sqlalchemy.types.VARCHAR(length=8),
+         'fecha_registro': sqlalchemy.types.DATETIME(timezone=False)
+        }
 
 df.to_sql('NicArActividad', con=engine, if_exists='replace', dtype=dtype)

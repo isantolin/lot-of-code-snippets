@@ -1,7 +1,5 @@
 # https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/padrones/padron-de-regimenes-generales-
 from gevent import monkey
-monkey.patch_all(thread=False, select=False)
-
 import pandas as pd
 import sqlalchemy
 from bs4 import BeautifulSoup
@@ -12,6 +10,8 @@ import glob
 import requests
 import grequests
 import numpy as np
+
+monkey.patch_all(thread=False, select=False)
 
 DB_HOST = "localhost"
 DB_USER = "root"
@@ -57,7 +57,7 @@ for file in glob.glob("*" + extension):
         os.remove(STORAGE_PATH + file)
     os.remove(file)
 
-header = ['FechaDePublicacion', 'FechaVigenciaDesde', 'FechaVigenciaHasta', 'CUIT', 'TipoConstanciaInscripcion', 'MarcaAltaSujeto', 'MarcaAlicuota', 'AlicuotaPercepcion', 'AlicuotaRetencion', 'NroGrupoPercepcion', 'NroGrupoRetencion','RazonSocial']
+header = ['FechaDePublicacion', 'FechaVigenciaDesde', 'FechaVigenciaHasta', 'CUIT', 'TipoConstanciaInscripcion', 'MarcaAltaSujeto', 'MarcaAlicuota', 'AlicuotaPercepcion', 'AlicuotaRetencion', 'NroGrupoPercepcion', 'NroGrupoRetencion', 'RazonSocial']
 dtypes = {'CUIT': 'int16', 'AlicuotaPercepcion': 'float16', 'AlicuotaRetencion': 'float16', 'NroGrupoPercepcion': 'int16', 'NroGrupoRetencion': 'int16'}
 frame = pd.DataFrame()
 lst = []
@@ -86,17 +86,17 @@ df.dropna(subset=['RazonSocial'], inplace=True)
 engine = sqlalchemy.create_engine("mysql+mysqldb://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
 dtype = {'CUIT': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
-       'RazonSocial': sqlalchemy.types.VARCHAR(length=170),
-       'FechaDePublicacion': sqlalchemy.types.DATE(),
-       'FechaVigenciaDesde': sqlalchemy.types.DATE(),
-       'FechaVigenciaHasta': sqlalchemy.types.DATE(),
-       'TipoConstanciaInscripcion': sqlalchemy.types.VARCHAR(length=1),
-       'MarcaAltaSujeto': sqlalchemy.types.VARCHAR(length=1),
-       'MarcaAlicuota': sqlalchemy.types.VARCHAR(length=1),
-       'AlicuotaPercepcion': sqlalchemy.types.FLOAT(),
-       'AlicuotaRetencion':  sqlalchemy.types.FLOAT(),
-       'NroGrupoPercepcion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
-       'NroGrupoRetencion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
-       }
+         'RazonSocial': sqlalchemy.types.VARCHAR(length=170),
+         'FechaDePublicacion': sqlalchemy.types.DATE(),
+         'FechaVigenciaDesde': sqlalchemy.types.DATE(),
+         'FechaVigenciaHasta': sqlalchemy.types.DATE(),
+         'TipoConstanciaInscripcion': sqlalchemy.types.VARCHAR(length=1),
+         'MarcaAltaSujeto': sqlalchemy.types.VARCHAR(length=1),
+         'MarcaAlicuota': sqlalchemy.types.VARCHAR(length=1),
+         'AlicuotaPercepcion': sqlalchemy.types.FLOAT(),
+         'AlicuotaRetencion':  sqlalchemy.types.FLOAT(),
+         'NroGrupoPercepcion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
+         'NroGrupoRetencion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
+        }
 
 df.to_sql('AgipRegistro', con=engine, if_exists='append', dtype=dtype)
