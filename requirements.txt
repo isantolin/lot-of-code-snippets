@@ -1,0 +1,6 @@
+pandas
+sqlalchemy
+beautifulsoup4
+numpy
+facebook-sdk
+python-twitter
