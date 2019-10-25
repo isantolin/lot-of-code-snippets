@@ -68,6 +68,6 @@ dtype = {'id': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
          'list_slug': sqlalchemy.types.VARCHAR(length=25),  # https://help.twitter.com/en/using-twitter/twitter-lists-not-working
          'created_at': sqlalchemy.types.DATE(),
          'last_activity': sqlalchemy.types.DATE(),
-        }
+         }
 
 df_accounts.to_sql('accounts', con=engine, if_exists='append', dtype=dtype)

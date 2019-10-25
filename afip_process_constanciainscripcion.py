@@ -24,6 +24,6 @@ dtype = {'CUIT': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
          'IntegraSociedades': sqlalchemy.types.VARCHAR(length=1),
          'Empleador': sqlalchemy.types.VARCHAR(length=1),
          'ActividadMonotributo': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
-        }
+         }
 
 df.to_sql('ConstanciasInscripcion', con=engine, if_exists='append', dtype=dtype)

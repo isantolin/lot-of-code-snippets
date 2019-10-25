@@ -97,6 +97,6 @@ dtype = {'CUIT': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
          'AlicuotaRetencion':  sqlalchemy.types.FLOAT(),
          'NroGrupoPercepcion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
          'NroGrupoRetencion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
-        }
+         }
 
 df.to_sql('AgipRegistro', con=engine, if_exists='append', dtype=dtype)

@@ -47,6 +47,6 @@ dtype = {'tipo': sqlalchemy.types.CHAR(),
          'titular': sqlalchemy.types.VARCHAR(length=170),
          'tipo_doc': sqlalchemy.types.VARCHAR(length=8),
          'fecha_registro': sqlalchemy.types.DATETIME(timezone=False)
-        }
+         }
 
 df.to_sql('NicArActividad', con=engine, if_exists='replace', dtype=dtype)
