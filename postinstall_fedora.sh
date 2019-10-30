@@ -31,10 +31,6 @@ dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 # Other repository and external packages install
 sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_$(uname -m).rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm
 sudo dnf -y install rpmfusion-free-release-tainted
-#Scanner Added
-wget -c https://download2.ebz.epson.net/imagescanv3/fedora/latest1/rpm/$ARCH/imagescan-bundle-fedora-$(rpm -E %fedora)-3.59.2.$ARCH.rpm.tar.gz -O - | tar -xz
-sudo sh ~/imagescan-bundle-fedora-$(rpm -E %fedora)-3.59.2.$ARCH.rpm/install.sh
-
 # Update to install repository packages
 sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
 sudo dnf -y update
