@@ -16,6 +16,9 @@ sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
 sudo echo "fastestmirror=True" >> /etc/dnf/dnf.conf
 sudo echo "deltarpm=True" >> /etc/dnf/dnf.conf
+sudo echo -e "127.0.0.1\tlocalhost airwave7
+::1\tlocalhost airwave7" | sudo tee /etc/hosts
+sudo hostnamectl set-hostname airwave7
 
 #Repository Add
 dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
