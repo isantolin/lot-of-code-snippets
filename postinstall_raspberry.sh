@@ -6,7 +6,7 @@ sudo apt update
 sudo apt -y upgrade
 sudo apt -y full-upgrade
 
-sudo apt -y install winbind apt-transport-https webmin tasksel libavcodec-extra ttf-mscorefonts-installer unrar build-essential synaptic libdvd-pkg  default-jdk default-jre libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git oracle-java12-installer oracle-java12-set-default ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm phing phpunit gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-libav gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly rpi-update
+sudo apt -y install winbind apt-transport-https webmin tasksel libavcodec-extra ttf-mscorefonts-installer unrar-free build-essential synaptic libdvd-pkg  default-jdk default-jre libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm phing phpunit gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-libav gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly rpi-update
 
 sudo rpi-update
 sudo tasksel install lamp-server
