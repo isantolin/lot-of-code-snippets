@@ -12,12 +12,12 @@ sudo echo -e "127.0.0.1\tlocalhost airwave7
 ::1\tlocalhost airwave7" | sudo tee /etc/hosts
 sudo hostnamectl set-hostname airwave7
 
-# Netbeans;
+# Netbeans; https://unix.stackexchange.com/questions/64432/extract-the-base-file-name-from-a-url-using-bash
 echo "Inserte URL del ARCHIVO que aparezca en la version seleccionada de: https://www.oracle.com/technetwork/java/javase/downloads/index.html "
 read jdk_download_url
 wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "$jdk_download_url"
-sudo rpm -Uvh jdk-13.0.1_linux-x64_bin.rpm
-sudo rm jdk-13.0.1_linux-x64_bin.rpm
+sudo rpm -Uvh ${jdk_download_url##*/}
+sudo rm ${jdk_download_url##*/}
 
 
 # Repository Add
