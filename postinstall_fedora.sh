@@ -6,8 +6,8 @@
 # System configs
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
-sudo echo "fastestmirror=True
-deltarpm=True" >> /etc/dnf/dnf.conf
+sudo echo "fastestmirror=true
+deltarpm=true" >> /etc/dnf/dnf.conf
 sudo echo -e "127.0.0.1\tlocalhost airwave7
 ::1\tlocalhost airwave7" | sudo tee /etc/hosts
 sudo hostnamectl set-hostname airwave7
@@ -36,7 +36,7 @@ sudo dnf -y install rpmfusion-free-release-tainted
 
 # Update to install repository packages
 sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
-sudo dnf -y update
+sudo dnf -y update --refresh
 sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-pgsql php-pear php-curl php-gd php-xml php-bcmath php-zip cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar flash-plugin alsa-plugins-pulseaudio libcurl flash-player-ppapi lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr gstreamer1-svt-vp9 gstreamer1-svt-av1 NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake
 
 # Xorg --> Wayland
