@@ -50,6 +50,8 @@ sudo postgresql-setup --initdb --unit postgresql
 sudo systemctl start postgresql
 sudo firewall-cmd --add-service={http,https,postgresql} --permanent
 sudo firewall-cmd --reload
+su - postgres
+psql -c "ALTER USER postgres WITH PASSWORD '$password';"
 
 sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
 
