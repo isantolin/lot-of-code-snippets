@@ -52,7 +52,15 @@ sudo firewall-cmd --add-service={http,https,postgresql} --permanent
 sudo firewall-cmd --reload
 su - postgres
 psql -c "ALTER USER postgres WITH PASSWORD '$password';"
-
+sudo echo -e "local\tall\tall\tpeer
+host\tall\tall\t127.0.1.1/32\tident
+local\treplication\tall\tpeer
+host\treplication\tall\t127.0.1.1/32\tident
+host\tall\tall\t192.168.1.0/24\tmd5
+host\tall\tall\t127.0.1.1/32\tmd5
+host\tall\tall\t::1/128\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
+####
+####
 sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
 
 # Web Stuff related to Netbeans
