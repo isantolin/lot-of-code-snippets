@@ -31,7 +31,7 @@ gpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmi
 dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 # Other repository and external packages install
-sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_$(uname -m).rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
+sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_$(uname -m).rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
 sudo dnf -y install rpmfusion-free-release-tainted
 
 # Update to install repository packages
@@ -52,17 +52,9 @@ sudo firewall-cmd --add-service={http,https,postgresql} --permanent
 sudo firewall-cmd --reload
 su - postgres
 psql -c "ALTER USER postgres WITH PASSWORD '$password';"
-sudo echo -e "local\tall\tall\tpeer
-host\tall\tall\t127.0.1.1/32\tident
-local\treplication\tall\tpeer
-host\treplication\tall\t127.0.1.1/32\tident
-host\tall\tall\t192.168.1.0/24\tmd5
-host\tall\tall\t127.0.1.1/32\tmd5
-host\tall\tall\t::1/128\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
-####
+sudo echo -e "host\tall\tall\tall\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
 ####
 sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
-
 # Web Stuff related to Netbeans
 sudo curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
