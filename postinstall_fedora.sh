@@ -77,7 +77,7 @@ wget https://github.com/atoum/atoum/releases/download/3.3.0/atoum.phar
 sudo chmod a+x atoum.phar
 sudo mv atoum.phar /usr/bin/atoum
 
-wget https://github.com/nette/tester/releases/download/v2.3.0/tester.phar 
+wget https://github.com/nette/tester/releases/download/v2.3.1/tester.phar 
 sudo chmod a+x tester.phar
 sudo mv tester.phar /usr/bin/tester
 
