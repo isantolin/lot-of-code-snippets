@@ -15,7 +15,7 @@ last_file = int(re.sub("[^0-9]", "", mydivs[0]['href']))
 lst = []
 i = 201
 DB_HOST = "localhost"
-DB_USER = "root"
+DB_USER = "_"
 DB_PASS = "_"
 DB_DB = "NicAr"
 
@@ -38,7 +38,7 @@ del lst
 df = df[~df.index.duplicated(keep='first')]
 df["fecha_registro"] = pd.to_datetime(df["fecha_registro"], infer_datetime_format=True)
 
-engine = sqlalchemy.create_engine("mysql+mysqldb://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
 dtype = {'tipo': sqlalchemy.types.CHAR(),
          'dominio': sqlalchemy.types.VARCHAR(length=170),
@@ -46,7 +46,7 @@ dtype = {'tipo': sqlalchemy.types.CHAR(),
          'id_dominio': sqlalchemy.types.INT(),
          'titular': sqlalchemy.types.VARCHAR(length=170),
          'tipo_doc': sqlalchemy.types.VARCHAR(length=8),
-         'fecha_registro': sqlalchemy.types.DATETIME(timezone=False)
+         'fecha_registro': sqlalchemy.types.TIMESTAMP(timezone=False)
          }
 
 df.to_sql('NicArActividad', con=engine, if_exists='replace', dtype=dtype)

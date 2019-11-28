@@ -1,5 +1,7 @@
 # https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/padrones/padron-de-regimenes-generales-
 from gevent import monkey
+monkey.patch_all(thread=False, select=False)
+
 import pandas as pd
 import sqlalchemy
 from bs4 import BeautifulSoup
@@ -11,10 +13,8 @@ import requests
 import grequests
 import numpy as np
 
-monkey.patch_all(thread=False, select=False)
-
 DB_HOST = "localhost"
-DB_USER = "root"
+DB_USER = "_"
 DB_PASS = "_"
 DB_DB = "AFIP"
 STORAGE_PATH = 'getFiles/'
@@ -83,9 +83,9 @@ df['RazonSocial'] = df['RazonSocial'].str.strip()
 df = df.replace(r'^\s*$', np.nan, regex=True)
 df.dropna(subset=['RazonSocial'], inplace=True)
 
-engine = sqlalchemy.create_engine("mysql+mysqldb://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
-dtype = {'CUIT': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
+dtype = {'CUIT': sqlalchemy.types.BIGINT(),
          'RazonSocial': sqlalchemy.types.VARCHAR(length=170),
          'FechaDePublicacion': sqlalchemy.types.DATE(),
          'FechaVigenciaDesde': sqlalchemy.types.DATE(),
@@ -95,8 +95,8 @@ dtype = {'CUIT': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
          'MarcaAlicuota': sqlalchemy.types.VARCHAR(length=1),
          'AlicuotaPercepcion': sqlalchemy.types.FLOAT(),
          'AlicuotaRetencion':  sqlalchemy.types.FLOAT(),
-         'NroGrupoPercepcion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
-         'NroGrupoRetencion': sqlalchemy.dialects.mysql.INTEGER(unsigned=True),
+         'NroGrupoPercepcion': sqlalchemy.types.INTEGER(),
+         'NroGrupoRetencion': sqlalchemy.types.INTEGER(),
          }
 
 df.to_sql('AgipRegistro', con=engine, if_exists='append', dtype=dtype)

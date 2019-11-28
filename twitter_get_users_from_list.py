@@ -17,7 +17,7 @@ TWITTER_ACCESS_TOKEN_SECRET = '_'
 
 TWITTER_DELAY_ON_RATE_LIMIT = 930
 
-engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
 account_activity = ['id', 'screen_name', 'list_slug', 'created_at', 'last_activity']
 df_accounts = pd.DataFrame(columns=account_activity)
@@ -63,7 +63,7 @@ df_accounts.set_index('id', inplace=True)
 df_accounts.drop_duplicates(keep=False, inplace=True)
 pd.to_datetime(df_accounts['last_activity'], errors='coerce')
 
-dtype = {'id': sqlalchemy.dialects.mysql.BIGINT(unsigned=True),
+dtype = {'id': sqlalchemy.types.BIGINT(),
          'screen_name': sqlalchemy.types.VARCHAR(length=16),  # https://help.twitter.com/en/managing-your-account/twitter-username-rules
          'list_slug': sqlalchemy.types.VARCHAR(length=25),  # https://help.twitter.com/en/using-twitter/twitter-lists-not-working
          'created_at': sqlalchemy.types.DATE(),
