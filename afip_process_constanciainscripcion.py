@@ -5,7 +5,7 @@ import sqlalchemy
 DB_HOST = "localhost"
 DB_USER = "_"
 DB_PASS = "_"
-DB_DB = "AFIP" # AFIP
+DB_DB = "AFIP"
 
 engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 header = ['CUIT', 'Denominacion', 'ImpuestoGanancias', 'ImpuestoIVA', 'Monotributo', 'IntegraSociedades', 'Empleador', 'ActividadMonotributo']
