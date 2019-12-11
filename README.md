@@ -19,7 +19,7 @@ AFIP ETL Scripts related to "Constancia de Inscripcion" datasets
 
  Twitter API ETL Scripts related to user lists
  1. pip3 install sqlalchemy python-twitter pandas --upgrade --pre
- 2. Create a Twitter app on https://developer.twitter.com/en/apps
+ 2. Create a Twitter app on <https://developer.twitter.com/en/apps>
  3. Get Access token using the tool python-twitter/get_access_token.py
 
 ## fotolog_get_contents_scrap.py ##
