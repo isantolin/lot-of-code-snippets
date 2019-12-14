@@ -53,8 +53,15 @@ sudo firewall-cmd --reload
 su - postgres
 psql -c "ALTER USER postgres WITH PASSWORD '$password';"
 sudo echo -e "host\tall\tall\tall\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
+sudo mkdir /Apache
+sudo chmod +x /Apache
+sudo chmod 777 /Apache
+sudo systemctl restart httpd
+
 ####
 sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
+####
+
 # Web Stuff related to Netbeans
 sudo curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
