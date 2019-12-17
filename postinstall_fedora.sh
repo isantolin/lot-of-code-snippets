@@ -23,6 +23,8 @@ sudo rm ${jdk_download_url##*/}
 
 # Repository Add
 dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
+dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+
 sudo echo "[Webmin]
 name=Webmin Distribution Neutral
 #baseurl=https://download.webmin.com/download/yum
