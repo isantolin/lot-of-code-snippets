@@ -2,6 +2,7 @@
 #- Refresh de Cache una vez por día
 #- Agregar Color Remark de Consola (Fedy)
 #- Agregar Netbeans
+#- Agregar forma de cambiar DocumentRoot
 
 # System configs
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
