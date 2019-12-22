@@ -1,7 +1,6 @@
 #!/bin/bash
 #- Refresh de Cache una vez por día
 #- Agregar Color Remark de Consola (Fedy)
-#- Agregar Netbeans
 #- Agregar forma de cambiar DocumentRoot
 
 # System configs
@@ -20,10 +19,13 @@ wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2F
 sudo rpm -Uvh ${jdk_download_url##*/}
 sudo rm ${jdk_download_url##*/}
 
+sudo wget http://ftp.unicamp.br/pub/apache/netbeans/netbeans/11.2/Apache-NetBeans-11.2-bin-linux-x64.sh
+sudo sh Apache-NetBeans-11.2-bin-linux-x64.sh
+sudo rm Apache-NetBeans-11.2-bin-linux-x64.sh
 
 # Repository Add
-dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
-dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
+sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
+sudo dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
 
 sudo echo "[Webmin]
 name=Webmin Distribution Neutral
@@ -31,7 +33,7 @@ name=Webmin Distribution Neutral
 mirrorlist=https://download.webmin.com/download/yum/mirrorlist
 enabled=1
 gpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
-dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
+sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 # Other repository and external packages install
 sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_$(uname -m).rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
