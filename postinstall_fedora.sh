@@ -101,8 +101,10 @@ wget http://codeception.com/codecept.phar
 sudo chmod +x codecept.phar
 sudo mv codecept.phar /usr/bin/codecept.phar
 
-sudo pear channel-discover pear.phpdoc.org
-sudo pear install phpdoc/phpDocumentor
+sudo wget https://pear.phpdoc.org/channel.xml
+sudo pear channel-add ./channel.xml
+sudo pear install phpdoc/phpdocumentor
+sudo rm /channel.xml
 
 wget https://phar.phpunit.de/phpunit-skelgen.phar
 chmod +x phpunit-skelgen.phar
