@@ -46,6 +46,7 @@ sudo dnf -y update --refresh
 sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-pgsql php-pear php-curl php-gd php-xml php-bcmath php-zip cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar flash-plugin alsa-plugins-pulseaudio libcurl flash-player-ppapi lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr gstreamer1-svt-vp9 gstreamer1-svt-av1 NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake
 
 # Xorg --> Wayland
+sudo dnf -y install kernel-devel-5.3.7
 sudo akmods --force
 sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
 sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
@@ -104,8 +105,8 @@ sudo mv codecept.phar /usr/bin/codecept.phar
 
 sudo wget https://pear.phpdoc.org/channel.xml
 sudo pear channel-add ./channel.xml
-sudo pear install phpdoc/phpdocumentor
-sudo rm /channel.xml
+sudo pear install phpdocumentor
+sudo rm ./channel.xml
 
 wget https://phar.phpunit.de/phpunit-skelgen.phar
 chmod +x phpunit-skelgen.phar
