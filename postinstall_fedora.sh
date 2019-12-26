@@ -11,6 +11,7 @@ deltarpm=true" >> /etc/dnf/dnf.conf
 sudo echo -e "127.0.0.1\tlocalhost airwave7
 ::1\tlocalhost airwave7" | sudo tee /etc/hosts
 sudo hostnamectl set-hostname airwave7
+gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 
 # Netbeans; https://unix.stackexchange.com/questions/64432/extract-the-base-file-name-from-a-url-using-bash
 echo "Inserte URL del ARCHIVO que aparezca en la version seleccionada de: https://www.oracle.com/technetwork/java/javase/downloads/index.html "
