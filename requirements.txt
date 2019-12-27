@@ -4,3 +4,8 @@ beautifulsoup4
 numpy
 facebook-sdk
 python-twitter
+gevent
+rarfile
+grequests
+python-magic
+requests

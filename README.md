@@ -5,17 +5,17 @@ A bunch of Python code snippets
 AFIP ETL Scripts related to "Constancia de Inscripcion" datasets
  1. pip3 install pandas sqlalchemy --upgrade --pre
  
- ## agip_padron_de_regimenes_generales.py	##
+## agip_padron_de_regimenes_generales.py ##
  
  AGIP ETL Scripts related to "Regimenes Generales" datasets
- 1. pip3 install pandas sqlalchemy beautifulsoup4 numpy --upgrade --pre
+ 1. pip3 install pandas sqlalchemy beautifulsoup4 numpy gevent rarfile grequests --upgrade --pre
  
- ## facebook_get_posts_engagement.py	##
+## facebook_get_posts_engagement.py ##
  
  Facebook API ETL Scripts related to user Reactions
  1. pip3 install pandas facebook-sdk --upgrade --pre
  
- ## twitter_get_users_from_list.py	##
+## twitter_get_users_from_list.py ##
 
  Twitter API ETL Scripts related to user lists
  1. pip3 install sqlalchemy python-twitter pandas --upgrade --pre
