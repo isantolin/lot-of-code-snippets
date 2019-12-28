@@ -2,6 +2,7 @@
 #- Refresh de Cache una vez por día
 #- Agregar Color Remark de Consola (Fedy)
 #- Agregar forma de cambiar DocumentRoot
+#- Definir IDE para PHP
 
 # System configs
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
