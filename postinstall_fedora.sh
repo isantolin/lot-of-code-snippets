@@ -13,17 +13,6 @@ sudo echo -e "127.0.0.1\tlocalhost airwave7
 sudo hostnamectl set-hostname airwave7
 gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 
-# Netbeans; https://unix.stackexchange.com/questions/64432/extract-the-base-file-name-from-a-url-using-bash
-echo "Inserte URL del ARCHIVO que aparezca en la version seleccionada de: https://www.oracle.com/technetwork/java/javase/downloads/index.html "
-read jdk_download_url
-wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "$jdk_download_url"
-sudo rpm -Uvh ${jdk_download_url##*/}
-sudo rm ${jdk_download_url##*/}
-
-sudo wget http://ftp.unicamp.br/pub/apache/netbeans/netbeans/11.2/Apache-NetBeans-11.2-bin-linux-x64.sh
-sudo sh Apache-NetBeans-11.2-bin-linux-x64.sh
-sudo rm Apache-NetBeans-11.2-bin-linux-x64.sh
-
 # Repository Add
 sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
 sudo dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
@@ -47,7 +36,8 @@ sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs 
 
 sudo ln -s /var/lib/snapd/snap /snap
 sudo systemctl enable --now snapd.socket
-sudo snap install pycharm-community --classic
+sudo snap install pycharm-community --beta --classic
+sudo snap install phpstorm --beta --classic
 
 # Xorg --> Wayland
 sudo dnf -y install kernel-devel-5.3.7
