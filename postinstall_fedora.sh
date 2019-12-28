@@ -38,7 +38,7 @@ sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs 
 sudo ln -s /var/lib/snapd/snap /snap
 sudo systemctl enable --now snapd.socket
 sudo snap install pycharm-community --beta --classic
-sudo snap install phpstorm --beta --classic
+# sudo snap install phpstorm --beta --classic
 
 # Xorg --> Wayland
 sudo dnf -y install kernel-devel-5.3.7
