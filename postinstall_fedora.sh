@@ -5,17 +5,17 @@
 #- Definir IDE para PHP
 
 # System configs
-sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
+echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
-sudo echo "fastestmirror=true
-deltarpm=true" >> /etc/dnf/dnf.conf
-sudo echo -e "127.0.0.1\tlocalhost airwave7
+echo "fastestmirror=true
+deltarpm=true" | sudo tee /etc/dnf/dnf.conf
+echo -e "127.0.0.1\tlocalhost airwave7
 ::1\tlocalhost airwave7" | sudo tee /etc/hosts
 sudo hostnamectl set-hostname airwave7
 gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 
 # Repository Add
-sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/$(rpm -E %fedora)/winehq.repo
+sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$(rpm -E %fedora)"/winehq.repo
 sudo dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
 
 sudo echo "[Webmin]
@@ -27,7 +27,7 @@ gpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmi
 sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
 # Other repository and external packages install
-sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_$(uname -m).rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-$(uname -i)-1.0-1.noarch.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
+sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$(uname -m)".rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-"$(uname -i)"-1.0-1.noarch.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
 sudo dnf -y install rpmfusion-free-release-tainted
 
 # Update to install repository packages
@@ -61,7 +61,7 @@ sudo chmod 777 /Apache
 sudo systemctl restart httpd
 
 ####
-sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
+sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
 ####
 
 # Web Stuff related to Netbeans

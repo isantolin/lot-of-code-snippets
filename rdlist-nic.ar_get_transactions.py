@@ -26,7 +26,7 @@ while True:
         del df_temp
     except (urllib.error.HTTPError, urllib.error.URLError, ConnectionResetError, http.client.IncompleteRead) as err:
         print(err)
-        if (last_file < i):
+        if last_file < i:
             break
         else:
             pass

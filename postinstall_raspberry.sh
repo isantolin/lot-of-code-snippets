@@ -17,10 +17,10 @@ sudo apt install phpmyadmin -y
 
 #Netbeans
 echo "Inserte Password MySQL: "
-read password
+read -r password
 
 sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password';"
-sudo /usr/libexec/webmin/changepass.pl /etc/webmin root $password
+sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
 
 # Web Stuff related to Netbeans
 sudo curl -sS https://getcomposer.org/installer | php
