@@ -62,7 +62,7 @@ for account in accounts:
                     if r_image.status_code != 404:
                         filename, file_extension = os.path.splitext(urlparse(item_image_data['src']).path.split('/')[2])
 
-                        if (file_extension == ''):
+                        if file_extension == '':
                             mime = from_buffer(r_image.iter_content(256).__next__(), mime=True)
 
                             if mime == 'image/jpeg':
@@ -77,7 +77,12 @@ for account in accounts:
                         filename = ''
 
                     print(id_item)
-                    df_posts.loc[len(df_posts)] = [id_item, account, item_text_data.encode('cp1252'), filename, item_image_data['src'], r_image.status_code, item_date_date]
+                    df_posts.loc[len(df_posts)] = [id_item,
+                                                   account,
+                                                   item_text_data.encode('cp1252'),
+                                                   filename, item_image_data['src'],
+                                                   r_image.status_code,
+                                                   item_date_date]
 
                 except exceptions.SSLError as e:
                     print(e)
@@ -86,8 +91,10 @@ for account in accounts:
                 comment_user_text = BeautifulSoup(str(item_comment_content_data), "lxml")
 
                 for comment_user_text_item in comment_user_text:
-                    item_comment_author_data = comment_user_text_item.find_all("a", {'class': "meta__item__link meta__item__link--author"})
-                    item_comment_comment_data = comment_user_text_item.find_all("span", {'class': "meta__item__text JS_comment_item"})
+                    item_comment_author_data = comment_user_text_item.find_all("a",
+                                                                               {'class': "meta__item__link meta__item__link--author"})
+                    item_comment_comment_data = comment_user_text_item.find_all("span",
+                                                                                {'class': "meta__item__text JS_comment_item"})
 
                     for icad, iccd in zip(item_comment_author_data, item_comment_comment_data):
                         print(iccd['data-commentid'])

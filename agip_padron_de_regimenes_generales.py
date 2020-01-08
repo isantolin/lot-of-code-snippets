@@ -57,13 +57,39 @@ for file in glob.glob("*" + extension):
         os.remove(STORAGE_PATH + file)
     os.remove(file)
 
-header = ['FechaDePublicacion', 'FechaVigenciaDesde', 'FechaVigenciaHasta', 'CUIT', 'TipoConstanciaInscripcion', 'MarcaAltaSujeto', 'MarcaAlicuota', 'AlicuotaPercepcion', 'AlicuotaRetencion', 'NroGrupoPercepcion', 'NroGrupoRetencion', 'RazonSocial']
-dtypes = {'CUIT': 'int16', 'AlicuotaPercepcion': 'float16', 'AlicuotaRetencion': 'float16', 'NroGrupoPercepcion': 'int16', 'NroGrupoRetencion': 'int16'}
+header = ['FechaDePublicacion',
+          'FechaVigenciaDesde',
+          'FechaVigenciaHasta',
+          'CUIT',
+          'TipoConstanciaInscripcion',
+          'MarcaAltaSujeto',
+          'MarcaAlicuota',
+          'AlicuotaPercepcion',
+          'AlicuotaRetencion',
+          'NroGrupoPercepcion',
+          'NroGrupoRetencion',
+          'RazonSocial']
+
+dtypes = {'CUIT': 'int16',
+          'AlicuotaPercepcion': 'float16',
+          'AlicuotaRetencion': 'float16',
+          'NroGrupoPercepcion': 'int16',
+          'NroGrupoRetencion': 'int16'}
+
 frame = pd.DataFrame()
 lst = []
 
 for file in glob.glob("*.txt"):
-    df_temp = pd.read_csv(file, encoding='ISO-8859-1', names=header, header=None, delimiter=';', error_bad_lines=False, decimal=",", index_col='CUIT', na_values='')
+    df_temp = pd.read_csv(file,
+                          encoding='ISO-8859-1',
+                          names=header,
+                          header=None,
+                          delimiter=';',
+                          error_bad_lines=False,
+                          decimal=",",
+                          index_col='CUIT',
+                          na_values='')
+
     lst.append(df_temp)
     os.remove(file)
     del df_temp

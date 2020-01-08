@@ -21,7 +21,13 @@ DB_DB = "NicAr"
 
 while True:
     try:
-        df_temp = pd.read_csv("https://rdlist.nic.ar/rd_list/download/" + str(i) + "/csv/", encoding='ISO-8859-1', header=0, delimiter=',', error_bad_lines=False, decimal=",", na_values='')
+        df_temp = pd.read_csv("https://rdlist.nic.ar/rd_list/download/" + str(i) + "/csv/",
+                              encoding='ISO-8859-1',
+                              header=0,
+                              delimiter=',',
+                              error_bad_lines=False,
+                              decimal=",",
+                              na_values='')
         lst.append(df_temp)
         del df_temp
     except (urllib.error.HTTPError, urllib.error.URLError, ConnectionResetError, http.client.IncompleteRead) as err:
