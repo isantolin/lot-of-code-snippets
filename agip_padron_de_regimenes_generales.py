@@ -14,7 +14,7 @@ import grequests
 import numpy as np
 
 DB_HOST = "localhost"
-DB_USER = "_"
+DB_USER = "postgres"
 DB_PASS = "_"
 DB_DB = "AFIP"
 STORAGE_PATH = 'getFiles/'

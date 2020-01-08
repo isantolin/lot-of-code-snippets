@@ -6,7 +6,7 @@ import sqlalchemy
 from datetime import datetime
 
 DB_HOST = "localhost"
-DB_USER = "_"
+DB_USER = "postgres"
 DB_PASS = "_"
 DB_DB = "twitter"
 
@@ -45,8 +45,8 @@ try:
 except TwitterError as e:
     sys.exit('ERROR: Twitter' + str(e))
 
-for list in lists:
-    list_items = api.GetListMembers(slug=list.slug, list_id=list.id)
+for lista in lists:
+    list_items = api.GetListMembers(slug=lista.slug, list_id=lista.id)
 
     for y in list_items:
 
@@ -56,7 +56,7 @@ for list in lists:
             last_activity = datetime.strptime(y.status.created_at, '%a %b %d %H:%M:%S +0000 %Y')
 
         created_at = datetime.strptime(y.created_at, '%a %b %d %H:%M:%S +0000 %Y')
-        df_accounts.loc[len(df_accounts)] = [y.id, y.screen_name, list.slug, created_at, last_activity]
+        df_accounts.loc[len(df_accounts)] = [y.id, y.screen_name, lista.slug, created_at, last_activity]
 
 pd.to_numeric(df_accounts['id'], errors='coerce')
 df_accounts.set_index('id', inplace=True)

@@ -3,7 +3,7 @@ import pandas as pd
 import sqlalchemy
 
 DB_HOST = "localhost"
-DB_USER = "_"
+DB_USER = "postgres"
 DB_PASS = "_"
 DB_DB = "AFIP"
 

@@ -15,7 +15,7 @@ last_file = int(re.sub("[^0-9]", "", mydivs[0]['href']))
 lst = []
 i = 201
 DB_HOST = "localhost"
-DB_USER = "_"
+DB_USER = "postgres"
 DB_PASS = "_"
 DB_DB = "NicAr"
 
