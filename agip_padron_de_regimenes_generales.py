@@ -1,5 +1,6 @@
 # https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/padrones/padron-de-regimenes-generales-
 from gevent import monkey
+
 monkey.patch_all(thread=False, select=False)
 
 import pandas as pd
@@ -11,10 +12,9 @@ import os
 import glob
 import requests
 import grequests
-import numpy as np
 
 DB_HOST = "localhost"
-DB_USER = "postgres"
+DB_USER = "root"
 DB_PASS = "_"
 DB_DB = "AFIP"
 STORAGE_PATH = 'getFiles/'
@@ -70,7 +70,7 @@ header = ['FechaDePublicacion',
           'NroGrupoRetencion',
           'RazonSocial']
 
-dtypes = {'CUIT': 'int16',
+dtypes = {'CUIT': 'int64',
           'AlicuotaPercepcion': 'float16',
           'AlicuotaRetencion': 'float16',
           'NroGrupoPercepcion': 'int16',
@@ -106,10 +106,12 @@ df["FechaVigenciaHasta"] = pd.to_datetime(df["FechaVigenciaHasta"], format='%d%m
 
 df['RazonSocial'] = df['RazonSocial'].str.replace("#", " ")
 df['RazonSocial'] = df['RazonSocial'].str.strip()
-df = df.replace(r'^\s*$', np.nan, regex=True)
+df['RazonSocial'] = df['RazonSocial'].str.encode("utf-8")
+
+df = df.replace(r'^\s*$', pd.NA, regex=True)
 df.dropna(subset=['RazonSocial'], inplace=True)
 
-engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
 dtype = {'CUIT': sqlalchemy.types.BIGINT(),
          'RazonSocial': sqlalchemy.types.VARCHAR(length=170),
