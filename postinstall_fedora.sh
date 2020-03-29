@@ -37,8 +37,8 @@ sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs 
 
 sudo ln -s /var/lib/snapd/snap /snap
 sudo systemctl enable --now snapd.socket
-sudo snap install pycharm-community --beta --classic
-# sudo snap install phpstorm --beta --classic
+# sudo snap install pycharm-community --beta --classic
+sudo snap install pycharm-professional --beta  --classic
 # https://www.oracle.com/java/technologies/javase-jdk13-downloads.html
 
 # Xorg --> Wayland
