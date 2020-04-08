@@ -58,7 +58,9 @@ psql -c "ALTER USER postgres WITH PASSWORD '$password';"
 sudo echo -e "host\tall\tall\tall\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
 sudo mkdir /Apache
 sudo chmod +x /Apache
-sudo chmod 777 /Apache
+sudo touch /Apache/.htaccess
+sudo chmod -R 777 /Apache
+sudo chcon -R -t httpd_sys_content_t /Apache/ 
 sudo systemctl restart httpd
 
 ####
