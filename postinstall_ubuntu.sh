@@ -53,7 +53,7 @@ sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_na
 sudo curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
-wget -O phpunit https://phar.phpunit.de/phpunit-8.phar
+wget -O phpunit https://phar.phpunit.de/phpunit-9.1.3.phar
 sudo mv phpunit /usr/local/bin/phpunit
 sudo chmod -x /usr/local/bin/phpunit
 
