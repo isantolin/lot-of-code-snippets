@@ -71,7 +71,7 @@ sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
 sudo curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
-wget -O phpunit https://phar.phpunit.de/phpunit-8.phar
+wget -O phpunit https://phar.phpunit.de/phpunit-9.1.3.phar
 sudo mv phpunit /usr/local/bin/phpunit
 sudo chmod -x /usr/local/bin/phpunit
 
@@ -85,15 +85,15 @@ sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 wget https://get.symfony.com/cli/installer -O - | bash
 mv "$HOME"/.symfony/bin/symfony /usr/local/bin/symfony
 
-wget https://github.com/atoum/atoum/releases/download/3.3.0/atoum.phar
+wget https://github.com/atoum/atoum/releases/download/3.4.2/atoum.phar
 sudo chmod a+x atoum.phar
 sudo mv atoum.phar /usr/bin/atoum
 
-wget https://github.com/nette/tester/releases/download/v2.3.1/tester.phar 
+wget https://github.com/nette/tester/releases/download/v2.3.2/tester.phar 
 sudo chmod a+x tester.phar
 sudo mv tester.phar /usr/bin/tester
 
-wget https://github.com/phpstan/phpstan/releases/download/0.11.19/phpstan.phar
+wget https://github.com/phpstan/phpstan/releases/download/0.12.19/phpstan.phar
 sudo chmod a+x phpstan.phar
 sudo mv phpstan.phar /usr/bin/phpstan.phar
 
