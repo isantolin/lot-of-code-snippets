@@ -10,7 +10,7 @@ ARCH=$(uname -m)
 
 sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 
-if [ "$DIST" == "Ubuntu" ]; then
+if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   sudo depmod -ae && sudo update-initramfs -u
 
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
