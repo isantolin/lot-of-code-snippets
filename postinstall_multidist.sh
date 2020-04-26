@@ -1,5 +1,5 @@
 #!/bin/bash
-# TODO: Integrar Raspberry, Unificar setup de base de datos en PostGRES
+# TODO: Unificar setup de base de datos en PostGRES
 # TODO: https://www.oracle.com/java/technologies/javase-downloads.html#JDK14
 #- Agregar forma de cambiar DocumentRoot
 #- Definir IDE para PHP
@@ -13,26 +13,30 @@ sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
 if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   sudo depmod -ae && sudo update-initramfs -u
 
+  if [ "$DIST" == "Raspbian GNU/Linux" ]; then
+    sudo rpi-update
+  else
+    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+    wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+    wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+
+    wget https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".deb
+    sudo dpkg --install google-chrome-beta_current_"$ARCH".deb
+    rm google-chrome-beta_current_"$ARCH".deb
+    sudo add-apt-repository ppa:linuxuprising/java -y
+    sudo apt -y install virtualbox-6.1 oracle-java14-installer
+  fi
+
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
   sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -sc) main"
 
   sudo echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
   wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
 
-  echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-  wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-  wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-
-  wget https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".deb
-  sudo dpkg --install google-chrome-beta_current_"$ARCH".deb
-  rm google-chrome-beta_current_"$ARCH".deb
-
   wget https://repo.skype.com/latest/skypeforlinux-"$BITS".deb
   wget -q -O - https://repo.skype.com/data/SKYPE-GPG-KEY | sudo apt-key add -
   sudo dpkg --install skypeforlinux-"$BITS".deb
   rm skypeforlinux-"$BITS".deb
-
-  sudo add-apt-repository ppa:linuxuprising/java -y
 
   sudo apt update
   sudo apt -y upgrade
@@ -40,8 +44,7 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
 
   sudo apt -y install --install-recommends winehq-devel
   sudo apt -y install --install-recommends brasero
-  sudo apt -y install virtualbox-6.1
-  sudo apt -y install winbind apt-transport-https webmin tasksel ubuntu-restricted-extras build-essential synaptic libdvd-pkg  default-jdk default-jre libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git oracle-java14-installer ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad
+  sudo apt -y install winbind apt-transport-https webmin tasksel ubuntu-restricted-extras build-essential synaptic libdvd-pkg  default-jdk default-jre libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad
 
   sudo tasksel install lamp-server
   sudo mysql_secure_installation
