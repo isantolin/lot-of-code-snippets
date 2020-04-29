@@ -55,10 +55,8 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
 
 elif [ "$DIST" == "Fedora" ]; then
   sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
-  echo "fastestmirror=true
-  deltarpm=true" | sudo tee -a /etc/dnf/dnf.conf
-  echo -e "127.0.0.1\tlocalhost airwave7
-  ::1\tlocalhost airwave7" | sudo tee /etc/hosts
+  echo -e "fastestmirror=true\ndeltarpm=true" | sudo tee -a /etc/dnf/dnf.conf
+  echo -e "127.0.0.1\tlocalhost airwave7\n::1\tlocalhost airwave7" | sudo tee /etc/hosts
   sudo hostnamectl set-hostname airwave7
   gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 
@@ -66,12 +64,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$(rpm -E %fedora)"/winehq.repo
   sudo dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
 
-  sudo echo "[Webmin]
-  name=Webmin Distribution Neutral
-  #baseurl=https://download.webmin.com/download/yum
-  mirrorlist=https://download.webmin.com/download/yum/mirrorlist
-  enabled=1
-  gpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
+  sudo echo -e "[Webmin]\nname=Webmin Distribution Neutral\n#baseurl=https://download.webmin.com/download/yum\nmirrorlist=https://download.webmin.com/download/yum/mirrorlist\nenabled=1\ngpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
   # Other repository and external packages install
