@@ -4,6 +4,7 @@
 # TODO: - Agregar forma de cambiar DocumentRoot
 # TODO: Automatizar descarga de Netbeans
 # TODO: Atoum, Tester Automatizar
+# TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
