@@ -137,13 +137,13 @@ sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 wget https://get.symfony.com/cli/installer -O - | bash
 mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-wget https://github.com/atoum/atoum/releases/download/3.4.2/atoum.phar
-sudo chmod a+x atoum.phar
-sudo mv atoum.phar /usr/bin/atoum
+# wget https://github.com/atoum/atoum/releases/download/3.4.2/atoum.phar
+# sudo chmod a+x atoum.phar
+# sudo mv atoum.phar /usr/bin/atoum
 
-wget https://github.com/nette/tester/releases/download/v2.3.2/tester.phar
-sudo chmod a+x tester.phar
-sudo mv tester.phar /usr/bin/tester
+# wget https://github.com/nette/tester/releases/download/v2.3.2/tester.phar
+# sudo chmod a+x tester.phar
+# sudo mv tester.phar /usr/bin/tester
 
 wget https://github.com/phpstan/phpstan/releases/download/0.12.19/phpstan.phar
 sudo chmod a+x phpstan.phar
@@ -166,6 +166,7 @@ wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
 sudo mv wp-cli.phar /usr/local/bin/wp
 
+sudo pear channel-update pear.php.net
 sudo pear install PHP_CodeSniffer
 
 sudo npm install -g npm@latest
