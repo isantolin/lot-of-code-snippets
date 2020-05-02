@@ -1,9 +1,9 @@
 #!/bin/bash
 # TODO: Unificar setup de base de datos en PostGRES
 # TODO: https://www.oracle.com/java/technologies/javase-downloads.html#JDK14
-#- Agregar forma de cambiar DocumentRoot
-#- Definir IDE para PHP
-# Corregir espacios en Newline
+# TODO: - Agregar forma de cambiar DocumentRoot
+# TODO: Automatizar descarga de Netbeans
+# TODO: Atoum, Tester Automatizar
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
