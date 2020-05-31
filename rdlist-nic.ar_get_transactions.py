@@ -49,7 +49,7 @@ for response in responses:
 df = pd.concat(lst, ignore_index=True)
 del lst
 df = df[~df.index.duplicated(keep='first')]
-df["fecha_registro"] = pd.to_datetime(df["fecha_registro"], infer_datetime_format=True)
+df["fecha_registro"] = pd.to_datetime(df["fecha_registro"], format='%Y-%m-%d %H:%M:%S.%f')
 
 engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 
@@ -59,7 +59,7 @@ dtype = {'tipo': sqlalchemy.types.CHAR(),
          'id_dominio': sqlalchemy.types.INT(),
          'titular': sqlalchemy.types.VARCHAR(length=170),
          'tipo_doc': sqlalchemy.types.VARCHAR(length=8),
-         'fecha_registro': sqlalchemy.types.TIMESTAMP(timezone=False)
+         'fecha_registro': sqlalchemy.types.DATETIME(timezone=False)
          }
 
 df.to_sql('NicArActividad', con=engine, if_exists='replace', dtype=dtype)
