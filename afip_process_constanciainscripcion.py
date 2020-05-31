@@ -3,11 +3,11 @@ import pandas as pd
 import sqlalchemy
 
 DB_HOST = "localhost"
-DB_USER = "postgres"
+DB_USER = "root"
 DB_PASS = "_"
 DB_DB = "AFIP"
 
-engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 header = ['CUIT',
           'Denominacion',
           'ImpuestoGanancias',
@@ -17,9 +17,10 @@ header = ['CUIT',
           'Empleador',
           'ActividadMonotributo']
 
-df = pd.read_fwf('SELE-SAL-CONSTA.p20out1.20191123.tmp',
+df = pd.read_fwf('SELE-SAL-CONSTA.p20out1.20200530.tmp',
                  widths=[11, 30, 2, 2, 2, 1, 1, 2],
-                 encoding='ISO-8859-1',
+                 engine='python',
+                 encoding='windows-1252',
                  names=header,
                  na_filter=False)
 
