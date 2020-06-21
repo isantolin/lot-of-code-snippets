@@ -118,7 +118,8 @@ sudo snap install pycharm-professional --beta  --classic
 echo "Inserte Password MySQL: "
 read -r password
 
-sudo mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password';"
+
+sudo mysql -u root -p -e "install plugin validate_password soname 'validate_password.so'; SET GLOBAL validate_password.policy=LOW; ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password';"
 
 # Web Stuff related to Netbeans
 sudo curl -sS https://getcomposer.org/installer | php
