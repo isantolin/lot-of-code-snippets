@@ -18,15 +18,11 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   if [ "$DIST" == "Raspbian GNU/Linux" ]; then
     sudo rpi-update
   else
-    echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
-    wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
-    wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
-
     wget https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".deb
     sudo dpkg --install google-chrome-beta_current_"$ARCH".deb
     rm google-chrome-beta_current_"$ARCH".deb
     sudo add-apt-repository ppa:linuxuprising/java -y
-    sudo apt -y install virtualbox-6.1 oracle-java14-installer
+    sudo apt -y install oracle-java14-installer
   fi
 
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
@@ -63,7 +59,6 @@ elif [ "$DIST" == "Fedora" ]; then
 
   # Repository Add
   sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$(rpm -E %fedora)"/winehq.repo
-  sudo dnf config-manager --add-repo https://download.virtualbox.org/virtualbox/rpm/fedora/virtualbox.repo
 
   sudo echo -e "[Webmin]\nname=Webmin Distribution Neutral\n#baseurl=https://download.webmin.com/download/yum\nmirrorlist=https://download.webmin.com/download/yum/mirrorlist\nenabled=1\ngpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
@@ -91,7 +86,6 @@ elif [ "$DIST" == "Fedora" ]; then
   su - postgres
   psql -c "ALTER USER postgres WITH PASSWORD '$password';"
   sudo echo -e "host\tall\tall\tall\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
-
 
   ####
   sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
@@ -139,15 +133,7 @@ sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 wget https://get.symfony.com/cli/installer -O - | bash
 mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-# wget https://github.com/atoum/atoum/releases/download/3.4.2/atoum.phar
-# sudo chmod a+x atoum.phar
-# sudo mv atoum.phar /usr/bin/atoum
-
-# wget https://github.com/nette/tester/releases/download/v2.3.2/tester.phar
-# sudo chmod a+x tester.phar
-# sudo mv tester.phar /usr/bin/tester
-
-wget https://github.com/phpstan/phpstan/releases/download/0.12.19/phpstan.phar
+wget https://github.com/phpstan/phpstan/releases/download/0.12.31/phpstan.phar
 sudo chmod a+x phpstan.phar
 sudo mv phpstan.phar /usr/bin/phpstan.phar
 
@@ -174,25 +160,3 @@ sudo pear install PHP_CodeSniffer
 sudo npm install -g npm@latest
 sudo npm install --global gulp grunt karma phonegap bower express-generator cordova less sass
 sudo pip3 install pip --upgrade
-
-# IO scheduler udev rules: https://wiki.archlinux.org/index.php/Solid_State_Drives
-# Deadline on SSDs: https://wiki.debian.org/SSDOptimization#Low-Latency_IO-Scheduler
-declare {ssd,hdd}_scheduler="deadline"
-
-cat <<EOF | tee "/etc/udev/rules.d/60-io_schedulers.rules" > /dev/null 2>&1
-# Set deadline scheduler for non-rotating disks
-ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="0", ATTR{queue/scheduler}="$ssd_scheduler"
-# Set deadline scheduler for rotating disks
-ACTION=="add|change", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", ATTR{queue/scheduler}="$hdd_scheduler"
-EOF
-
-for disk in /sys/block/sd*; do
-    rot="$disk/queue/rotational"
-    sched="$disk/queue/scheduler"
-
-    if [[ $(cat "$rot") -eq 0 ]]; then
-        echo "$ssd_scheduler | tee $sched > /dev/null 2>&1"
-    elif [[ $(cat "$rot") -eq 1 ]]; then
-        echo "$hdd_scheduler | tee $sched > /dev/null 2>&1"
-    fi
-done
