@@ -52,7 +52,7 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
 
 elif [ "$DIST" == "Fedora" ]; then
   sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
-  echo -e "fastestmirror=true\ndeltarpm=true" | sudo tee -a /etc/dnf/dnf.conf
+  echo -e "fastestmirror=true\ndeltarpm=true\nmax_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
   echo -e "127.0.0.1\tlocalhost airwave7\n::1\tlocalhost airwave7" | sudo tee /etc/hosts
   sudo hostnamectl set-hostname airwave7
   gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
