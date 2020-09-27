@@ -86,9 +86,10 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo systemctl start postgresql
   sudo firewall-cmd --add-service={http,https,postgresql} --permanent
   sudo firewall-cmd --reload
+  sudo echo -e "host\tall\tall\tall\tmd5\nlocal\tall\tall\ttrust" | sudo tee /var/lib/pgsql/data/pg_hba.conf
+  sudo service postgresql restart
   su - postgres
   psql -c "ALTER USER postgres WITH PASSWORD '$password';"
-  sudo echo -e "host\tall\tall\tall\tmd5" | sudo tee /var/lib/pgsql/data/pg_hba.conf
 
   ####
   sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
