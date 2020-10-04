@@ -163,4 +163,6 @@ sudo pear install PHP_CodeSniffer
 
 sudo npm install -g npm@latest
 sudo npm install --global gulp grunt karma phonegap bower express-generator cordova less sass
-sudo pip3 install pip --upgrade
+sudo pip3 install pip --upgrade --pre
+sudo pip3 list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip3 install --ignore-installed --pre -U
+
