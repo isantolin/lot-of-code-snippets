@@ -166,7 +166,7 @@ sudo pear channel-update pear.php.net
 sudo pear install PHP_CodeSniffer
 
 sudo npm install -g npm@latest
-sudo npm install --global gulp grunt karma phonegap bower express-generator cordova less sass
+sudo npm install --global gulp grunt karma bower express-generator cordova less sass
 sudo pip3 install pip --upgrade --pre
 
 sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 python3 -m pip install --ignore-installed --use-feature=2020-resolver --pre\ndnf -y update" | sudo tee /usr/sbin/auto-upgrade-ign.sh
