@@ -64,7 +64,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
   # Other repository and external packages install
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$(uname -m)".rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-"$(uname -i)"-1.0-1.noarch.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm https://dbeaver.io/files/dbeaver-ce-latest-stable.x86_64.rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$(uname -m)".rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-"$(uname -i)"-1.0-1.noarch.rpm
   sudo dnf -y install rpmfusion-free-release-tainted
   
   #CUDA 9.1 Install (Not tested)
@@ -112,6 +112,7 @@ sudo ln -s /var/lib/snapd/snap /snap
 sudo systemctl enable --now snapd.socket
 # sudo snap install pycharm-community --beta --classic
 sudo snap install pycharm-professional --beta  --classic
+sudo snap install dbeaver-ce
 
 echo "Inserte Password MySQL: "
 read -r password
