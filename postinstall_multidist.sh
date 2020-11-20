@@ -1,8 +1,6 @@
 #!/bin/bash
 # TODO: Unificar setup de base de datos en PostGRES
-# TODO: https://www.oracle.com/java/technologies/javase-downloads.html#JDK14
 # TODO: - Agregar forma de cambiar DocumentRoot
-# TODO: Automatizar descarga de Netbeans
 # TODO: Atoum, Tester Automatizar
 # TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
 
@@ -113,6 +111,7 @@ sudo systemctl enable --now snapd.socket
 # sudo snap install pycharm-community --beta --classic
 sudo snap install pycharm-professional --beta  --classic
 sudo snap install dbeaver-ce
+sudo snap install netbeans --classic
 
 echo "Inserte Password MySQL: "
 read -r password
