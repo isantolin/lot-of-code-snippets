@@ -172,5 +172,5 @@ sudo pip3 install pip --upgrade --pre
 
 sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 python3 -m pip install --ignore-installed --use-feature=2020-resolver --pre\ndnf -y update" | sudo tee /usr/sbin/auto-upgrade-ign.sh
 chmod -x /usr/sbin/auto-upgrade-ign.sh
-sudo echo -e "[Unit]\nDescription=Auto Upgrade (Ignacio)\n[Service]\nExecStart=/usr/sbin/auto-upgrade-ign.sh\n\n[Install]\nWantedBy=multi-user.target\nWants=network-online.target\nAfter=network.target network-online.target" | sudo tee /etc/systemd/system/auto-upgrade-ign.service
+sudo echo -e "[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=/usr/sbin/auto-upgrade-ign.sh\n\n[Install]\nWantedBy=multi-user.target" | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
