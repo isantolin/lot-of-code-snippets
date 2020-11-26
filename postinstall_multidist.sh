@@ -1,8 +1,9 @@
 #!/bin/bash
 # TODO: Unificar setup de base de datos en PostGRES
 # TODO: - Agregar forma de cambiar DocumentRoot
-# TODO: Atoum, Tester Automatizar
 # TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
+# TODO - Systemd: Agregar codigo de remocion de Snaps antiguos https://superuser.com/questions/1310825/how-to-remove-old-version-of-installed-snaps
+# TODO - Systemd: Hacer funcionar
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
