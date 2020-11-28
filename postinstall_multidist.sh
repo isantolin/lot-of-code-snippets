@@ -127,6 +127,7 @@ wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
 sudo mv phpunit /usr/local/bin/phpunit
 sudo chmod -x /usr/local/bin/phpunit
 
+sudo pear channel-update pear.php.net
 sudo pear channel-discover pear.phing.info
 sudo pear install phing/phing
 
