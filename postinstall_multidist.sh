@@ -123,7 +123,7 @@ sudo mysql -u root -p -e "install plugin validate_password soname 'validate_pass
 sudo curl -sS https://getcomposer.org/installer | php
 sudo mv composer.phar /usr/local/bin/composer
 
-wget -O phpunit https://phar.phpunit.de/phpunit-9.1.3.phar
+wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
 sudo mv phpunit /usr/local/bin/phpunit
 sudo chmod -x /usr/local/bin/phpunit
 
@@ -137,7 +137,7 @@ sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 wget https://get.symfony.com/cli/installer -O - | bash
 mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-wget https://github.com/phpstan/phpstan/releases/download/0.12.31/phpstan.phar
+wget https://github.com/phpstan/phpstan/releases/download/0.12.57/phpstan.phar
 sudo chmod a+x phpstan.phar
 sudo mv phpstan.phar /usr/bin/phpstan.phar
 
