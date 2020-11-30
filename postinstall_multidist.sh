@@ -108,6 +108,7 @@ sudo systemctl restart httpd
 # Comun a todo
 sudo ln -s /var/lib/snapd/snap /snap
 sudo systemctl enable --now snapd.socket
+sudo systemctl restart snapd.seeded.service
 # sudo snap install pycharm-community --beta --classic
 sudo snap install pycharm-professional --beta  --classic
 sudo snap install dbeaver-ce
