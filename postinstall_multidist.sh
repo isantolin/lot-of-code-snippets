@@ -3,16 +3,14 @@
 # TODO: - Agregar forma de cambiar DocumentRoot
 # TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
 # TODO - Systemd: Agregar codigo de remocion de Snaps antiguos https://superuser.com/questions/1310825/how-to-remove-old-version-of-installed-snaps
-# TODO - Systemd: Hacer funcionar
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
 ARCH=$(uname -m)
 
-sudo echo "blacklist psmouse" | sudo tee /etc/modprobe.d/blacklist.conf
+sudo echo -e 'Section "InputClass"\n\tIdentifier "ETPS/2 Elantech Touchpad"\n\tMatchProduct "ETPS/2 Elantech Touchpad"\n\tMatchIsTouchpad "on"\n\tMatchOS "Linux"\n\tMatchDevicePath "/dev/input/event*"\n\tOption "Ignore" "on"\nEndSection\n' | sudo tee /etc/X11/xorg.conf.d/synaptics.conf
 
 if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
-  sudo depmod -ae && sudo update-initramfs -u
 
   if [ "$DIST" == "Raspbian GNU/Linux" ]; then
     sudo rpi-update
@@ -20,8 +18,6 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
     wget https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".deb
     sudo dpkg --install google-chrome-beta_current_"$ARCH".deb
     rm google-chrome-beta_current_"$ARCH".deb
-    sudo add-apt-repository ppa:linuxuprising/java -y
-    sudo apt -y install oracle-java14-installer
   fi
 
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
@@ -41,12 +37,11 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
 
   sudo apt -y install --install-recommends winehq-devel
   sudo apt -y install --install-recommends brasero
-  sudo apt -y install winbind apt-transport-https webmin tasksel ubuntu-restricted-extras build-essential synaptic libdvd-pkg  default-jdk default-jre libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad
+  sudo apt -y install winbind apt-transport-https webmin tasksel ubuntu-restricted-extras build-essential synaptic libdvd-pkg libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad
 
   sudo tasksel install lamp-server
   sudo mysql_secure_installation
   sudo dpkg-reconfigure libdvd-pkg
-  sudo update-alternatives --config java
   sudo apt install phpmyadmin -y
 
 elif [ "$DIST" == "Fedora" ]; then
@@ -63,20 +58,17 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
   # Other repository and external packages install
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm  https://go.skype.com/skypeforlinux-64.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$(uname -m)".rpm http://linuxdownload.adobe.com/adobe-release/adobe-release-"$(uname -i)"-1.0-1.noarch.rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm  https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$(uname -m)".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
-  
-  #CUDA 9.1 Install (Not tested)
-  sudo dnf -y install https://developer.download.nvidia.com/compute/cuda/repos/fedora25/x86_64/cuda-repo-fedora25-9.1.85-1.x86_64.rpm
 
   # Update to install repository packages
   sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
   sudo dnf -y update --refresh
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-pgsql php-pear php-curl php-gd php-xml php-bcmath php-zip cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar flash-plugin alsa-plugins-pulseaudio libcurl flash-player-ppapi lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake snapd cuda
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-pgsql php-pear php-curl php-gd php-xml php-bcmath php-zip cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar flash-plugin alsa-plugins-pulseaudio libcurl lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake snapd cuda
+  
   # Xorg --> Wayland
   sudo dnf -y install kernel-devel
   sudo akmods --force
-  sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
   sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
 
 # Lamp Configuration
