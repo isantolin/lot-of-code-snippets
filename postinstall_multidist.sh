@@ -7,6 +7,10 @@
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
 ARCH=$(uname -m)
+VER_FEDORA=$(rpm -E %fedora)
+VER_UBUNTU=$(lsb_release -sc)
+
+COMPUTER_ID='airwave7'
 
 #Disabled Touchpad on X11
 sudo echo -e 'Section "InputClass"\n\tIdentifier "ETPS/2 Elantech Touchpad"\n\tMatchProduct "ETPS/2 Elantech Touchpad"\n\tMatchIsTouchpad "on"\n\tMatchOS "Linux"\n\tMatchDevicePath "/dev/input/event*"\n\tOption "Ignore" "on"\nEndSection\n' | sudo tee /etc/X11/xorg.conf.d/synaptics.conf
@@ -24,7 +28,7 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   fi
 
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
-  sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -sc) main"
+  sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $VER_UBUNTU main"
 
   sudo echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
   wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
@@ -50,18 +54,18 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
 elif [ "$DIST" == "Fedora" ]; then
   sudo depmod -ae && sudo dracut -f /boot/initramfs-currentimage
   echo -e "fastestmirror=true\ndeltarpm=true\nmax_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
-  echo -e "127.0.0.1\tlocalhost airwave7\n::1\tlocalhost airwave7" | sudo tee /etc/hosts
-  sudo hostnamectl set-hostname airwave7
+  echo -e "127.0.0.1\tlocalhost $COMPUTER_ID\n::1\tlocalhost $COMPUTER_ID" | sudo tee /etc/hosts
+  sudo hostnamectl set-hostname $COMPUTER_ID
   gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 
   # Repository Add
-  sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$(rpm -E %fedora)"/winehq.repo
+  sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$VER_FEDORA"/winehq.repo
 
   sudo echo -e "[Webmin]\nname=Webmin Distribution Neutral\n#baseurl=https://download.webmin.com/download/yum\nmirrorlist=https://download.webmin.com/download/yum/mirrorlist\nenabled=1\ngpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
   # Other repository and external packages install
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$(rpm -E %fedora)".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$(rpm -E %fedora)".noarch.rpm  https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$(uname -m)".rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$VER_FEDORA".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$VER_FEDORA".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
 
   # Update to install repository packages
@@ -135,7 +139,7 @@ sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 wget https://get.symfony.com/cli/installer -O - | bash
 mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-wget https://github.com/phpstan/phpstan/releases/download/0.12.57/phpstan.phar
+wget https://github.com/phpstan/phpstan/releases/download/0.12.64/phpstan.phar
 sudo chmod a+x phpstan.phar
 sudo mv phpstan.phar /usr/bin/phpstan.phar
 
