@@ -73,7 +73,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf -y install kernel-devel
   sudo akmods --force
   sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
-  sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
+  # sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
 
 # Lamp Configuration
   sudo systemctl enable postgresql
