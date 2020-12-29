@@ -146,10 +146,11 @@ wget http://codeception.com/codecept.phar
 sudo chmod +x codecept.phar
 sudo mv codecept.phar /usr/bin/codecept.phar
 
-sudo wget https://pear.phpdoc.org/channel.xml
-sudo pear channel-add ./channel.xml
-sudo pear install phpdocumentor
-sudo rm ./channel.xml
+wget -O phive.phar "https://phar.io/releases/phive.phar"
+sudo rm phive.phar.asc
+sudo chmod +x phive.phar
+sudo mv phive.phar /usr/local/bin/phive
+sudo phive install --force-accept-unsigned phpDocumentor
 
 wget https://phar.phpunit.de/phpunit-skelgen.phar
 chmod +x phpunit-skelgen.phar
