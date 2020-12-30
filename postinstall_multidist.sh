@@ -169,7 +169,9 @@ sudo pear install PHP_CodeSniffer
 
 sudo npm install -g npm@latest
 sudo npm install --global gulp grunt karma bower express-generator cordova less sass
+
 sudo pip3 install pip wheel NeuroTools matplotlib numpy --upgrade --pre
+sudo dnf install parted-devel libcurl-devel cairo-devel python-devel openssl-devel
 
 sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nsnap list --all | while read snapname ver rev trk pub notes; do if [[ \$notes = *disabled* ]]; then sudo snap remove '\$snapname' --revision='\$rev'; fi; done" | sudo tee /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
