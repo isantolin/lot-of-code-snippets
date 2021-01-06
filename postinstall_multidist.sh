@@ -7,8 +7,6 @@
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
 ARCH=$(uname -m)
-VER_FEDORA=$(rpm -E %fedora)
-VER_UBUNTU=$(lsb_release -sc)
 
 KERNEL=$(uname -r)
 COMPUTER_ID='airwave7'
@@ -19,6 +17,7 @@ sudo echo -e 'Section "InputClass"\n\tIdentifier "ETPS/2 Elantech Touchpad"\n\tM
 sudo echo -e 'ATTRS{name}=="ETPS/2 Elantech Touchpad", ENV{ID_INPUT}="", ENV{ID_INPUT_MOUSE}="", ENV{ID_INPUT_POINTINGSTICK}=""' | sudo tee /usr/lib/udev/rules.d/75-elan-touch.rules
 
 if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
+  OS_VERSION=$(lsb_release -sc)
 
   if [ "$DIST" == "Raspbian GNU/Linux" ]; then
     sudo rpi-update
@@ -29,7 +28,7 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   fi
 
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
-  sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $VER_UBUNTU main"
+  sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $OS_VERSION main"
 
   sudo echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
   wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
@@ -53,19 +52,20 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   sudo apt install phpmyadmin -y
 
 elif [ "$DIST" == "Fedora" ]; then
+  OS_VERSION=$(rpm -E %fedora)
   echo -e "fastestmirror=true\ndeltarpm=true\nmax_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
   echo -e "127.0.0.1\tlocalhost $COMPUTER_ID\n::1\tlocalhost $COMPUTER_ID" | sudo tee /etc/hosts
   sudo hostnamectl set-hostname $COMPUTER_ID
   gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
 
   # Repository Add
-  sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$VER_FEDORA"/winehq.repo
+  sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$OS_VERSION"/winehq.repo
 
   sudo echo -e "[Webmin]\nname=Webmin Distribution Neutral\n#baseurl=https://download.webmin.com/download/yum\nmirrorlist=https://download.webmin.com/download/yum/mirrorlist\nenabled=1\ngpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
   # Other repository and external packages install
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$VER_FEDORA".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$VER_FEDORA".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.3.00.30857-1."$ARCH".rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.3.00.30857-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
 
   # Update to install repository packages
