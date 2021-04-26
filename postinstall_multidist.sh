@@ -105,13 +105,9 @@ sudo chcon -R -t httpd_sys_content_t /Apache/
 sudo systemctl restart httpd
 
 # Comun a todo
-sudo ln -s /var/lib/snapd/snap /snap
-sudo systemctl enable --now snapd.socket
-sudo systemctl restart snapd.seeded.service
-# sudo snap install pycharm-community --beta --classic
-sudo snap install pycharm-professional --beta  --classic
-sudo snap install dbeaver-ce
-sudo snap install netbeans --classic
+sudo flatpak install flathub io.dbeaver.DBeaverCommunity
+sudo flatpak install flathub org.telegram.desktop
+sudo flatpak install flathub com.jetbrains.PyCharm-Professional
 
 echo "Inserte Password MySQL: "
 read -r password
