@@ -2,7 +2,6 @@
 # TODO: Unificar setup de base de datos en PostGRES
 # TODO: - Agregar forma de cambiar DocumentRoot
 # TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
-# TODO - Systemd: Agregar codigo de remocion de Snaps antiguos https://superuser.com/questions/1310825/how-to-remove-old-version-of-installed-snaps
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
@@ -65,7 +64,8 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
 
   # Other repository and external packages install
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.3.00.30857-1."$ARCH".rpm
+  sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.4.00.7556-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
 
   # Update to install repository packages
@@ -105,6 +105,7 @@ sudo chcon -R -t httpd_sys_content_t /Apache/
 sudo systemctl restart httpd
 
 # Comun a todo
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 sudo flatpak install flathub io.dbeaver.DBeaverCommunity
 sudo flatpak install flathub org.telegram.desktop
 sudo flatpak install flathub com.jetbrains.PyCharm-Professional
@@ -134,7 +135,7 @@ sudo mv php-cs-fixer /usr/bin/php-cs-fixer
 wget https://get.symfony.com/cli/installer -O - | bash
 mv /root/.symfony/bin/symfony /usr/local/bin/symfony
 
-wget https://github.com/phpstan/phpstan/releases/download/0.12.64/phpstan.phar
+wget https://github.com/phpstan/phpstan/releases/download/0.12.85/phpstan.phar
 sudo chmod a+x phpstan.phar
 sudo mv phpstan.phar /usr/bin/phpstan.phar
 
