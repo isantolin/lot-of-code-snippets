@@ -174,3 +174,7 @@ sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\
 chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
+
+#Install GPG Keys
+gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/private.pgp
+gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/public.pgp
