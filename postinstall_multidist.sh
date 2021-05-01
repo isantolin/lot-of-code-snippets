@@ -67,18 +67,34 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.4.00.7556-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
+  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
   # Update to install repository packages
   sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
+  sudo flatpak update
+  sudo dnf clean all
   sudo dnf -y update --refresh
+  sudo fwupdmgr get-devices
+  sudo fwupdmgr refresh --force
+  sudo fwupdmgr get-updates
+  sudo fwupdmgr update
+    
+  # Install Basic Packages
   sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-pgsql php-pear php-curl php-gd php-xml php-bcmath php-zip cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake cuda kernel-devel-"$KERNEL"
+  sudo flatpak install flathub io.dbeaver.DBeaverCommunity
+  sudo flatpak install flathub org.telegram.desktop
+  sudo flatpak install flathub com.jetbrains.PyCharm-Professional
   
   # Xorg --> Wayland
   sudo akmods --force
   sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
-  # sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
+  sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
+  
+  # Performance Tweaks
+  sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog"
+  echo -e "vm.swappiness=10" | sudo tee -a /etc/sysctl.conf
 
-# Lamp Configuration
+  # Lamp Configuration
   sudo systemctl enable postgresql
   sudo postgresql-setup --initdb --unit postgresql
   sudo systemctl start postgresql
@@ -103,12 +119,6 @@ sudo touch /Apache/.htaccess
 sudo chmod -R 777 /Apache
 sudo chcon -R -t httpd_sys_content_t /Apache/
 sudo systemctl restart httpd
-
-# Comun a todo
-sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-sudo flatpak install flathub io.dbeaver.DBeaverCommunity
-sudo flatpak install flathub org.telegram.desktop
-sudo flatpak install flathub com.jetbrains.PyCharm-Professional
 
 echo "Inserte Password MySQL: "
 read -r password
