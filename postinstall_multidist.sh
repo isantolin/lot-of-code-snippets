@@ -185,6 +185,13 @@ chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
 
+#Autostart some applications
+cp /usr/share/applications/teams.desktop ~/.config/autostart
+echo -e "X-GNOME-Autostart-enabled=true" | sudo tee -a ~/.config/autostart/teams.desktop
+cp /usr/share/applications/google-chrome-beta.desktop ~/.config/autostart
+echo -e "X-GNOME-Autostart-enabled=true" | sudo tee -a ~/.config/autostart/google-chrome-beta.desktop
+
+
 #Install GPG Keys
 gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/private.pgp
 gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/public.pgp
