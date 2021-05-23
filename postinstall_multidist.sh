@@ -43,12 +43,11 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
 
   sudo apt -y install --install-recommends winehq-devel
   sudo apt -y install --install-recommends brasero
-  sudo apt -y install winbind apt-transport-https webmin tasksel ubuntu-restricted-extras build-essential synaptic libdvd-pkg libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git ruby-sass node-less php-codesniffer phpmd composer php-doctrine-orm gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad
+  sudo apt -y install winbind apt-transport-https webmin tasksel ubuntu-restricted-extras build-essential synaptic libdvd-pkg libreoffice printer-driver-cups-pdf filezilla rabbitvcs-nautilus ffmpeg git ruby-sass node-less gfortran cmake npm nodejs qt5-qmake curl network-manager-fortisslvpn-gnome network-manager-iodine-gnome network-manager-l2tp-gnome network-manager-openconnect-gnome network-manager-ssh-gnome network-manager-strongswan network-manager-vpnc-gnome python3-pip gstreamer1.0-nice gstreamer1.0-omx-generic gstreamer1.0-opencv gstreamer1.0-pipewire gstreamer1.0-pocketsphinx gstreamer1.0-rtsp gstreamer1.0-plugins-bad
 
   sudo tasksel install lamp-server
   sudo mysql_secure_installation
   sudo dpkg-reconfigure libdvd-pkg
-  sudo apt install phpmyadmin -y
 
 elif [ "$DIST" == "Fedora" ]; then
   OS_VERSION=$(rpm -E %fedora)
@@ -80,11 +79,11 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo fwupdmgr update
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs php php-cli php-php-gettext php-mbstring php-mcrypt php-pgsql php-pear php-curl php-gd php-xml php-bcmath php-zip cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake cuda kernel-devel-"$KERNEL"
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils php-json NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav php-doctrine-orm gcc-gfortran cmake cuda kernel-devel-"$KERNEL"
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
   
   # Xorg --> Wayland
-  # sudo akmods --force
+  sudo akmods --force
   sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
   sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
   
@@ -124,54 +123,7 @@ read -r password
 
 sudo mysql -u root -p -e "install plugin validate_password soname 'validate_password.so'; SET GLOBAL validate_password.policy=LOW; ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; FLUSH PRIVILEGES;"
 
-# Web Stuff related to Netbeans
-sudo curl -sS https://getcomposer.org/installer | php
-sudo mv composer.phar /usr/local/bin/composer
-
-wget -O phpunit https://phar.phpunit.de/phpunit-9.phar
-sudo mv phpunit /usr/local/bin/phpunit
-sudo chmod -x /usr/local/bin/phpunit
-
-sudo pear channel-update pear.php.net
-sudo pear channel-discover pear.phing.info
-sudo pear install phing/phing
-
-curl https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
-sudo chmod a+x php-cs-fixer
-sudo mv php-cs-fixer /usr/bin/php-cs-fixer
-
-wget https://get.symfony.com/cli/installer -O - | bash
-mv /root/.symfony/bin/symfony /usr/local/bin/symfony
-
-wget https://github.com/phpstan/phpstan/releases/download/0.12.85/phpstan.phar
-sudo chmod a+x phpstan.phar
-sudo mv phpstan.phar /usr/bin/phpstan.phar
-
-wget http://codeception.com/codecept.phar
-sudo chmod +x codecept.phar
-sudo mv codecept.phar /usr/bin/codecept.phar
-
-wget -O phive.phar "https://phar.io/releases/phive.phar"
-sudo rm phive.phar.asc
-sudo chmod +x phive.phar
-sudo mv phive.phar /usr/local/bin/phive
-sudo phive install --force-accept-unsigned phpDocumentor
-
-wget https://phar.phpunit.de/phpunit-skelgen.phar
-chmod +x phpunit-skelgen.phar
-sudo mv phpunit-skelgen.phar /usr/local/bin/phpunit-skelgen
-
-wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-chmod +x wp-cli.phar
-sudo mv wp-cli.phar /usr/local/bin/wp
-
-wget https://github.com/ApiGen/ApiGen.github.io/raw/master/apigen.phar
-chmod +x apigen.phar
-sudo mv apigen.phar /usr/bin/apigen
-
-sudo pear channel-update pear.php.net
-sudo pear install PHP_CodeSniffer
-
+# Web Stuff
 sudo npm install -g npm@latest
 sudo npm install --global gulp grunt karma bower express-generator cordova less sass
 
