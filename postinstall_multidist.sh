@@ -130,16 +130,17 @@ sudo npm install --global gulp grunt karma bower express-generator cordova less 
 sudo pip3 install pip wheel NeuroTools matplotlib numpy --upgrade --pre
 sudo dnf install parted-devel libcurl-devel cairo-devel python-devel openssl-devel
 
-sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nsnap list --all | while read snapname ver rev trk pub notes; do if [[ \$notes = *disabled* ]]; then sudo snap remove '\$snapname' --revision='\$rev'; fi; done" | sudo tee /usr/bin/auto-upgrade-ign.sh
+sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update" | sudo tee /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
 
 #Autostart some applications
+mkdir ~/.config/autostart
 cp /usr/share/applications/teams.desktop ~/.config/autostart
-echo -e "X-GNOME-Autostart-enabled=true" | sudo tee -a ~/.config/autostart/teams.desktop
+echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/teams.desktop
 cp /usr/share/applications/google-chrome-beta.desktop ~/.config/autostart
-echo -e "X-GNOME-Autostart-enabled=true" | sudo tee -a ~/.config/autostart/google-chrome-beta.desktop
+echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/google-chrome-beta.desktop
 
 
 #Install GPG Keys
