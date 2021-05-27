@@ -32,11 +32,6 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   sudo echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
   wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
 
-  wget https://repo.skype.com/latest/skypeforlinux-"$BITS".deb
-  wget -q -O - https://repo.skype.com/data/SKYPE-GPG-KEY | sudo apt-key add -
-  sudo dpkg --install skypeforlinux-"$BITS".deb
-  rm skypeforlinux-"$BITS".deb
-
   sudo apt update
   sudo apt -y upgrade
   sudo apt -y full-upgrade
@@ -64,7 +59,7 @@ elif [ "$DIST" == "Fedora" ]; then
 
   # Other repository and external packages install
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://go.skype.com/skypeforlinux-"$BITS".rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.4.00.7556-1."$ARCH".rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.4.00.7556-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
