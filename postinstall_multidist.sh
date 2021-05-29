@@ -59,7 +59,7 @@ elif [ "$DIST" == "Fedora" ]; then
 
   # Other repository and external packages install
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://packages.microsoft.com/yumrepos/ms-teams/teams-1.4.00.7556-1."$ARCH".rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
@@ -132,11 +132,8 @@ sudo systemctl enable auto-upgrade-ign.service
 
 #Autostart some applications
 mkdir ~/.config/autostart
-cp /usr/share/applications/teams.desktop ~/.config/autostart
-echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/teams.desktop
 cp /usr/share/applications/google-chrome-beta.desktop ~/.config/autostart
 echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/google-chrome-beta.desktop
-
 
 #Install GPG Keys
 gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/private.pgp
