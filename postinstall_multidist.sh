@@ -138,4 +138,5 @@ echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/google-chr
 
 #Install GPG Keys
 gpg2 --import /run/media/ignaciosantolin/KEYS/private.pgp
-gpg2 --import /run/media/ignaciosantolin/KEYS/public.pgp
+# gpg2 --import /run/media/ignaciosantolin/KEYS/public.pgp
+gpg2 --keyserver keys.openpgp.org --recv-keys ADD3C408CD66D157
