@@ -137,5 +137,5 @@ cp /usr/share/applications/google-chrome-beta.desktop ~/.config/autostart
 echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/google-chrome-beta.desktop
 
 #Install GPG Keys
-gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/private.pgp
-gpg2 --import /run/media/ignaciosantolin/2ED2-2E3E/public.pgp
+gpg2 --import /run/media/ignaciosantolin/KEYS/private.pgp
+gpg2 --import /run/media/ignaciosantolin/KEYS/public.pgp
