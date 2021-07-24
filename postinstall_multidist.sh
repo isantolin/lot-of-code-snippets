@@ -50,7 +50,7 @@ elif [ "$DIST" == "Fedora" ]; then
   echo -e "127.0.0.1\tlocalhost $COMPUTER_ID\n::1\tlocalhost $COMPUTER_ID" | sudo tee /etc/hosts
   sudo hostnamectl set-hostname $COMPUTER_ID
   gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
-  dconf write /org/gnome/desktop/datetime/automatic-timezone true
+  gsettings set org.gnome.desktop.datetime automatic-timezone true
 
   # Repository Add
   sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$OS_VERSION"/winehq.repo
