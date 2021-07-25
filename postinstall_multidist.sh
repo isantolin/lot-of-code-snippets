@@ -141,6 +141,13 @@ echo -e "X-GNOME-Autostart-enabled=true" | tee -a ~/.config/autostart/google-chr
 gpg2 --import /run/media/ignaciosantolin/KEYS/private.pgp
 gpg2 --keyserver keys.openpgp.org --recv-keys ADD3C408CD66D157
 
+cp /run/media/ignaciosantolin/KEYS/id_rsa ~/.ssh/id_rsa
+cp /run/media/ignaciosantolin/KEYS/id_rsa.pub ~/.ssh/id_rsa.pub
+sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 600 ~/.ssh/id_rsa.pub
+ssh-add ~/.ssh/id_rsa
+
+
 #Setup Printer
 sudo lpadmin -p "XP-241" -E -v dnssd://EPSON%20XP-240%20Series._pdl-datastream._tcp.local/ -m lsb/usr/Epson/epson-inkjet-printer-escpr/Epson-XP-240_Series-epson-escpr-en.ppd.gz
 sudo lpadmin -d "XP-241"
