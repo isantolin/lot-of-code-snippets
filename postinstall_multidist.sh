@@ -125,7 +125,7 @@ sudo npm install --global gulp grunt karma bower express-generator cordova less 
 
 sudo pip3 install pip wheel NeuroTools matplotlib numpy --upgrade --pre
 
-sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nflatpak update -y" | sudo tee /usr/bin/auto-upgrade-ign.sh
+sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nflatpak update -y\ndnf remove \$(dnf repoquery --installonly --latest-limit 2 -q)" | sudo tee /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
