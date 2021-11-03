@@ -148,5 +148,5 @@ ssh-add ~/.ssh/id_rsa
 
 
 #Setup Printer
-sudo lpadmin -p "XP-241" -E -v dnssd://EPSON%20XP-240%20Series._pdl-datastream._tcp.local/ -m lsb/usr/Epson/epson-inkjet-printer-escpr/Epson-XP-240_Series-epson-escpr-en.ppd.gz
+sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m lsb/usr/Epson/epson-inkjet-printer-escpr/Epson-XP-240_Series-epson-escpr-en.ppd.gz
 sudo lpadmin -d "XP-241"
