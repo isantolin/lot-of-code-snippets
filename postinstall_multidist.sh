@@ -62,6 +62,8 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm
   sudo dnf -y install rpmfusion-free-release-tainted
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  sudo dnf install https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+
 
   # Update to install repository packages
   sudo find /etc/yum.repos.d/*.repo -type f -exec sed -i 's/enabled=0/enabled=1/g' {} \;
@@ -74,7 +76,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo fwupdmgr update
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl lpf-mscore-fonts postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake cuda kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake cuda kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories
   
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
   
