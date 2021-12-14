@@ -1,4 +1,4 @@
-# http://www.afip.gov.ar/genericos/cinscripcion/archivocompleto.asp
+# https://www.afip.gob.ar/genericos/cInscripcion/archivoCompleto.asp
 import pandas as pd
 import sqlalchemy
 
