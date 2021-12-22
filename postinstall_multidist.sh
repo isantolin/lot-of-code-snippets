@@ -79,10 +79,12 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
   
   # Perl Upgrade
-  cpanm App::cpanoutdated
-  cpan-outdated -p | cpanm
+  sudo cpanm App::cpanoutdated
+  sudo cpan-outdated -p | sudo cpanm
   
   # Conda Packages
+  conda create -n env python=3.9
+  conda activate env
   conda install numba
   conda install cudatoolkit
   
