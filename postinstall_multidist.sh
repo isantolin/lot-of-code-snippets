@@ -96,8 +96,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
   
   # Performance Tweaks
-  sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog"
-  echo -e "vm.swappiness=10\nnet.ipv6.conf.all.disable_ipv6 = 1\nnet.ipv6.conf.default.disable_ipv6 = 1\nnet.ipv6.conf.lo.disable_ipv6 = 1\nnet.ipv6.conf.tun0.disable_ipv6 = 1" | sudo tee -a /etc/sysctl.d/99-sysctl.conf
+  sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
 
   # Lamp Configuration
   sudo systemctl enable postgresql
