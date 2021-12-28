@@ -134,7 +134,7 @@ sudo mysql -u root -p -e "install plugin validate_password soname 'validate_pass
 sudo npm install -g npm@latest
 sudo npm install --global gulp grunt karma bower express-generator cordova less sass
 
-sudo pip3 install pip wheel NeuroTools matplotlib numpy --upgrade --pre
+sudo pip3 install pip wheel --upgrade --pre
 
 sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nflatpak update -y\ncpan-outdated -p | cpanm" | sudo tee /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
