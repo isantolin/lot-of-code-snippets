@@ -2,6 +2,7 @@
 # TODO: Unificar setup de base de datos en PostGRES
 # TODO: - Agregar forma de cambiar DocumentRoot
 # TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
+# TODO - Rasp: https://github.com/shivasiddharth/Stremio-RaspberryPi
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
 BITS=$(getconf LONG_BIT)
