@@ -89,6 +89,10 @@ elif [ "$DIST" == "Fedora" ]; then
   conda install numba
   conda install cudatoolkit
   
+  # TPM for QEMU + Windows 11
+  mkdir /tmp/myvtpm
+  swtpm_setup --tpm2 --tpmstate /tmp/myvtpm --create-ek-cert --create-platform-cert
+  sudo chmod 777 -R /var/lib/swtpm-localca/
   
   # Xorg --> Wayland
   sudo akmods --force
