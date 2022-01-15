@@ -3,11 +3,11 @@ import pandas as pd
 import sqlalchemy
 
 DB_HOST = "localhost"
-DB_USER = "root"
+DB_USER = "postgres"
 DB_PASS = "_"
 DB_DB = "AFIP"
 
-engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
 header = ['CUIT',
           'Denominacion',
           'ImpuestoGanancias',
