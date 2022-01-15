@@ -85,7 +85,7 @@ for file in glob.glob("*.txt"):
                           names=header,
                           header=None,
                           delimiter=';',
-                          error_bad_lines='skip',
+                          on_bad_lines='skip',
                           decimal=",",
                           index_col='CUIT',
                           na_values='')
