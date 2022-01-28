@@ -1,7 +1,6 @@
 #!/bin/bash
 # TODO: Unificar setup de base de datos en PostGRES
 # TODO: - Agregar forma de cambiar DocumentRoot
-# TODO: Monitorear CUDA Toolkit compatible con cuDF y Fedora
 # TODO - Rasp: https://github.com/shivasiddharth/Stremio-RaspberryPi
 
 DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
@@ -76,18 +75,12 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo fwupdmgr update
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake cuda kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus conda libvirt-devel
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake cuda kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus libvirt-devel
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
   
   # Perl Upgrade
   sudo cpanm App::cpanoutdated
   sudo cpan-outdated -p | sudo cpanm
-  
-  # Conda Packages
-  conda create -n env python=3.9
-  conda activate env
-  conda install numba
-  conda install cudatoolkit
   
   # TPM for QEMU + Windows 11
   mkdir /tmp/myvtpm
@@ -114,9 +107,7 @@ elif [ "$DIST" == "Fedora" ]; then
   su - postgres
   psql -c "ALTER USER postgres WITH PASSWORD '$password';"
 
-  ####
   sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
-  ####
 
 else
   echo "Distro no configurada"
@@ -133,11 +124,9 @@ echo "Inserte Password MySQL: "
 read -r password
 
 
-sudo mysql -u root -p -e "install plugin validate_password soname 'validate_password.so'; SET GLOBAL validate_password.policy=LOW; ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '$password'; FLUSH PRIVILEGES;"
-
 # Web Stuff
 sudo npm install -g npm@latest
-sudo npm install --global gulp grunt karma bower express-generator cordova less sass
+sudo npm install --global cordova
 
 sudo pip3 install pip wheel --upgrade --pre
 
