@@ -1,5 +1,4 @@
 #!/bin/bash
-# TODO: Unificar setup de base de datos en PostGRES
 # TODO: - Agregar forma de cambiar DocumentRoot
 # TODO - Rasp: https://github.com/shivasiddharth/Stremio-RaspberryPi
 
@@ -60,7 +59,7 @@ elif [ "$DIST" == "Fedora" ]; then
 
   # Other repository and external packages install
   sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://developer.download.nvidia.com/compute/cuda/repos/fedora25/"$ARCH"/cuda-repo-fedora25-9.1.85-1."$ARCH".rpm https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
-  sudo dnf -y install rpmfusion-free-release-tainted
+  sudo dnf -y install rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
 
@@ -92,6 +91,13 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
   sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
   sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
+  sudo dnf remove xorg-x11-drv-nouveau
+  sudo dracut /boot/initramfs-$(uname -r).img $(uname -r)
+  wget https://us.download.nvidia.com/XFree86/Linux-x86_64/390.147/NVIDIA-Linux-x86_64-390.147.run
+  
+  # On next bootup will show console, to install NVIDIA-Linux-x86_64-*.*.run
+  sudo systemctl set-default multi-user.target
+  # following the install execute "sudo systemctl set-default graphical.target"
   
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
