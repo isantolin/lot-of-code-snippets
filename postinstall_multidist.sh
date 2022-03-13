@@ -93,11 +93,6 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
   sudo dnf remove xorg-x11-drv-nouveau -y
   sudo dracut /boot/initramfs-$(uname -r).img $(uname -r) --force
-  wget https://us.download.nvidia.com/XFree86/Linux-x86_64/390.147/NVIDIA-Linux-x86_64-390.147.run
-  
-  # On next bootup will show console, to install NVIDIA-Linux-x86_64-*.*.run
-  sudo systemctl set-default multi-user.target
-  # following the install execute "sudo systemctl set-default graphical.target"
   
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
