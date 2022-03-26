@@ -156,3 +156,7 @@ ssh-add ~/.ssh/id_rsa
 #Setup Printer
 sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m lsb/usr/Epson/epson-inkjet-printer-escpr/Epson-XP-240_Series-epson-escpr-en.ppd.gz
 sudo lpadmin -d "XP-241"
+
+#Setup VM
+wget https://raw.githubusercontent.com/isantolin/os-templates-and-setup/main/qemu-win11.xml
+sudo virsh create qemu-win11.xml
