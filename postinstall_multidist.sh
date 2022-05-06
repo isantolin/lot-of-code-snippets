@@ -93,6 +93,9 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
   sudo dnf remove xorg-x11-drv-nouveau -y
   sudo dracut /boot/initramfs-$(uname -r).img $(uname -r) --force
+  sudo grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
+  sudo grubby --update-kernel=ALL --args='video=vesafb:mtrr:3'
+
   
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
