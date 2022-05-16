@@ -9,4 +9,4 @@ rarfile
 grequests
 python-magic
 requests
-mysqlclient
+psycopg2-binary
