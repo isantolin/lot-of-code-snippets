@@ -85,6 +85,9 @@ elif [ "$DIST" == "Fedora" ]; then
   mkdir /tmp/myvtpm
   swtpm_setup --tpm2 --tpmstate /tmp/myvtpm --create-ek-cert --create-platform-cert
   sudo chmod 777 -R /var/lib/swtpm-localca/
+  sudo cat /sys/firmware/acpi/tables/SLIC > /usr/share/seabios/slic.bin
+  sudo cat /sys/firmware/acpi/tables/MSDM > /usr/share/seabios/msdm.bin
+  restorecon -R -v /usr/share/seabios/
   
   # Xorg --> Wayland
   sudo akmods --force
