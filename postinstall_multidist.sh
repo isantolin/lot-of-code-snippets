@@ -8,6 +8,7 @@ ARCH=$(uname -m)
 
 KERNEL=$(uname -r)
 COMPUTER_ID='airwave7'
+PRINTER_IP='192.168.15.127'
 
 #Disabled Touchpad on X11
 sudo echo -e 'Section "InputClass"\n\tIdentifier "ETPS/2 Elantech Touchpad"\n\tMatchProduct "ETPS/2 Elantech Touchpad"\n\tMatchIsTouchpad "on"\n\tMatchOS "Linux"\n\tMatchDevicePath "/dev/input/event*"\n\tOption "Ignore" "on"\nEndSection\n' | sudo tee /etc/X11/xorg.conf.d/synaptics.conf
@@ -161,7 +162,7 @@ ssh-add ~/.ssh/id_rsa
 
 
 #Setup Printer
-sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m gutenprint.5.3://escp2-xp240/expert
+sudo lpadmin -p "XP-241" -E -v socket://"$PRINTER_IP" -m gutenprint.5.3://escp2-xp240/expert
 sudo lpadmin -d "XP-241"
 
 #Setup VM
