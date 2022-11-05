@@ -93,17 +93,17 @@ elif [ "$DIST" == "Fedora" ]; then
   
   # Xorg --> Wayland
   sudo akmods --force
-  sudo sed -i '/DRIVER==/d' /usr/lib/udev/rules.d/61-gdm.rules
-  sudo sed -i '/WaylandEnable=false/d' /etc/gdm/custom.conf
-  sudo cp -p /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
   sudo dnf remove xorg-x11-drv-nouveau -y
-  sudo dracut /boot/initramfs-$(uname -r).img $(uname -r) --force
   sudo grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
   sudo grubby --update-kernel=ALL --args='video=vesafb:mtrr:3'
 
   
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
+
+  # Password Prompt
+  echo "Inserte Password PostgreSQL: "
+  read -r password
 
   # Lamp Configuration
   sudo systemctl enable postgresql
@@ -128,10 +128,6 @@ sudo touch /Apache/.htaccess
 sudo chmod -R 777 /Apache
 sudo chcon -R -t httpd_sys_content_t /Apache/
 sudo systemctl restart httpd
-
-echo "Inserte Password MySQL: "
-read -r password
-
 
 # Web Stuff
 sudo npm install -g npm@latest
