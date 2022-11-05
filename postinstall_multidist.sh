@@ -135,6 +135,9 @@ sudo npm install --global cordova
 
 sudo pip3 install pip wheel --upgrade --pre
 
+# REPLACE
+# pip --disable-pip-version-check list --outdated --pre --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre -U
+
 sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nflatpak update -y\ncpan-outdated -p | cpanm" | sudo tee /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
