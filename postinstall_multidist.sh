@@ -76,7 +76,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo fwupdmgr update
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda kernel-devel vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus libvirt-devel libdb-devel dbus-devel seabios swtpm-tools
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus libvirt-devel libdb-devel dbus-devel seabios swtpm-tools
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
   
   # Perl Upgrade
@@ -90,14 +90,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo cat /sys/firmware/acpi/tables/SLIC > /usr/share/seabios/slic.bin
   sudo cat /sys/firmware/acpi/tables/MSDM > /usr/share/seabios/msdm.bin
   restorecon -R -v /usr/share/seabios/
-  
-  # Xorg --> Wayland
-  sudo akmods --force
-  sudo dnf remove xorg-x11-drv-nouveau -y
-  sudo grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
-  sudo grubby --update-kernel=ALL --args='video=vesafb:mtrr:3'
 
-  
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
 
