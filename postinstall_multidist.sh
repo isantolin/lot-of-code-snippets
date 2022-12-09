@@ -122,13 +122,7 @@ sudo pip3 install pip wheel --upgrade --pre
 
 sudo rm /usr/bin/auto-upgrade-ign.sh
 sudo echo "pip --disable-pip-version-check list --outdated --pre --format=json | python -c \"import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))\" | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U" | sudo tee /usr/bin/auto-upgrade-ign.sh
-sudo echo "dnf -y update" >> /usr/bin/auto-upgrade-ign.sh
-sudo echo "flatpak update -y" >> /usr/bin/auto-upgrade-ign.sh
-sudo echo "cpan-outdated -p | cpanm" >> /usr/bin/auto-upgrade-ign.sh
-sudo echo "fwupdmgr get-devices" >> /usr/bin/auto-upgrade-ign.sh
-sudo echo "fwupdmgr refresh --force" >> /usr/bin/auto-upgrade-ign.sh
-sudo echo "fwupdmgr get-updates" >> /usr/bin/auto-upgrade-ign.sh
-sudo echo "fwupdmgr update" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo -e "dnf -y update\nflatpak update -y\ncpan-outdated -p | cpanm\nfwupdmgr get-devices\nfwupdmgr refresh --force\nfwupdmgr get-updates\nfwupdmgr update" >> /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
