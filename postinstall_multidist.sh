@@ -8,7 +8,7 @@ ARCH=$(uname -m)
 
 KERNEL=$(uname -r)
 COMPUTER_ID='airwave7'
-PRINTER_IP='192.168.15.127'
+PRINTER_IP=$(arp -n | grep f8:d0:27:ef:58:60 | awk '{print $1}')
 
 #Disabled Touchpad on X11
 sudo echo -e 'Section "InputClass"\n\tIdentifier "ETPS/2 Elantech Touchpad"\n\tMatchProduct "ETPS/2 Elantech Touchpad"\n\tMatchIsTouchpad "on"\n\tMatchOS "Linux"\n\tMatchDevicePath "/dev/input/event*"\n\tOption "Ignore" "on"\nEndSection\n' | sudo tee /etc/X11/xorg.conf.d/synaptics.conf
