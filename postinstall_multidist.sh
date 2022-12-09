@@ -70,18 +70,10 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo flatpak update
   sudo dnf clean all
   sudo dnf -y update --refresh
-  sudo fwupdmgr get-devices
-  sudo fwupdmgr refresh --force
-  sudo fwupdmgr get-updates
-  sudo fwupdmgr update
     
   # Install Basic Packages
   sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus libvirt-devel libdb-devel dbus-devel seabios swtpm-tools
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
-  
-  # Perl Upgrade
-  sudo cpanm App::cpanoutdated
-  sudo cpan-outdated -p | sudo cpanm
   
   # TPM for QEMU + Windows 11
   mkdir /tmp/myvtpm
@@ -128,10 +120,15 @@ sudo npm install --global cordova
 
 sudo pip3 install pip wheel --upgrade --pre
 
-# REPLACE
-# pip --disable-pip-version-check list --outdated --pre --format=json | python -c "import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))" | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U
-
-sudo echo -e "python3 -m pip list --outdated --pre --format=freeze | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U\ndnf -y update\nflatpak update -y\ncpan-outdated -p | cpanm" | sudo tee /usr/bin/auto-upgrade-ign.sh
+sudo rm /usr/bin/auto-upgrade-ign.sh
+sudo echo "pip --disable-pip-version-check list --outdated --pre --format=json | python -c \"import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))\" | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --pre --ignore-installed -U" | sudo tee /usr/bin/auto-upgrade-ign.sh
+sudo echo "dnf -y update" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo "flatpak update -y" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo "cpan-outdated -p | cpanm" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo "fwupdmgr get-devices" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo "fwupdmgr refresh --force" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo "fwupdmgr get-updates" >> /usr/bin/auto-upgrade-ign.sh
+sudo echo "fwupdmgr update" >> /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
