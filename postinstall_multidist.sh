@@ -8,7 +8,6 @@ ARCH=$(uname -m)
 
 KERNEL=$(uname -r)
 COMPUTER_ID='airwave7'
-PRINTER_IP=$(arp -n | grep f8:d0:27:ef:58:60 | awk '{print $1}')
 
 #Disabled Touchpad on X11
 sudo echo -e 'Section "InputClass"\n\tIdentifier "ETPS/2 Elantech Touchpad"\n\tMatchProduct "ETPS/2 Elantech Touchpad"\n\tMatchIsTouchpad "on"\n\tMatchOS "Linux"\n\tMatchDevicePath "/dev/input/event*"\n\tOption "Ignore" "on"\nEndSection\n' | sudo tee /etc/X11/xorg.conf.d/synaptics.conf
@@ -72,7 +71,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf -y update --refresh
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus libvirt-devel libdb-devel dbus-devel seabios swtpm-tools
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd libdvdcss cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" parted-devel libcurl-devel cairo-devel python-devel openssl-devel krb5-devel gobject-introspection-devel cairo-gobject-devel fedora-workstation-repositories perl-App-cpanminus libvirt-devel libdb-devel dbus-devel seabios swtpm-tools nmap
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop com.jetbrains.PyCharm-Professional -y
   
   # TPM for QEMU + Windows 11
@@ -147,6 +146,8 @@ ssh-add ~/.ssh/id_rsa
 
 
 #Setup Printer
+sudo nmap -sn 192.168.15.0/24
+PRINTER_IP=$(arp -n | grep f8:d0:27:ef:58:60 | awk '{print $1}')
 sudo lpadmin -p "XP-241" -E -v socket://"$PRINTER_IP" -m gutenprint.5.3://escp2-xp240/expert
 sudo lpadmin -d "XP-241"
 
