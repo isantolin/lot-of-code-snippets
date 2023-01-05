@@ -120,7 +120,9 @@ sudo npm install --global cordova
 
 sudo pip3 install pip wheel --upgrade --pre
 
-sudo rm /usr/bin/auto-upgrade-ign.sh
+# Perl Upgrade
+sudo cpanm App::cpanoutdated
+
 sudo echo "pip --disable-pip-version-check list --outdated --pre --format=json | python -c \"import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))\" | grep -v '^\-e' | cut -d = -f 1  | xargs -n1 pip install --upgrade --pre -U" | sudo tee /usr/bin/auto-upgrade-ign.sh
 sudo echo -e "dnf -y update\nflatpak update -y\ncpan-outdated -p | cpanm\nfwupdmgr get-devices\nfwupdmgr refresh --force\nfwupdmgr get-updates\nfwupdmgr update" >> /usr/bin/auto-upgrade-ign.sh
 chmod -x /usr/bin/auto-upgrade-ign.sh
