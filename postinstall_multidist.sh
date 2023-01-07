@@ -88,7 +88,7 @@ elif [ "$DIST" == "Fedora" ]; then
   restorecon -R -v /usr/share/seabios/
 
   # Performance Tweaks
-  sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog ipv6.disable=1"
+  sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog"
 
   # Password Prompt
   echo "Inserte Password PostgreSQL: "
