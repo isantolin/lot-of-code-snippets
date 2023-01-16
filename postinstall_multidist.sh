@@ -76,7 +76,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf -y update --refresh
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" python-devel openssl-devel krb5-devel fedora-workstation-repositories perl-App-cpanminus dbus-devel seabios swtpm-tools nmap code
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" python-devel fedora-workstation-repositories perl-App-cpanminus seabios swtpm-tools code
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop -y
   
   # TPM for QEMU + Windows 11
@@ -119,9 +119,7 @@ sudo chcon -R -t httpd_sys_content_t /Apache/
 sudo systemctl restart httpd
 
 # Web Stuff
-sudo npm install -g npm@latest
-sudo npm install --global cordova
-
+sudo npm install -g npm@latest cordova
 sudo pip3 install pip wheel --upgrade --pre
 
 # Perl Upgrade
@@ -146,15 +144,12 @@ gpg2 --keyserver keys.openpgp.org --recv-keys ADD3C408CD66D157
 mkdir ~/.ssh/
 cp /run/media/ignaciosantolin/KEYS/id_rsa ~/.ssh/id_rsa
 cp /run/media/ignaciosantolin/KEYS/id_rsa.pub ~/.ssh/id_rsa.pub
-sudo chmod 600 ~/.ssh/id_rsa
-sudo chmod 600 ~/.ssh/id_rsa.pub
+sudo chmod 600 ~/.ssh/id_rs*
 ssh-add ~/.ssh/id_rsa
 
 
 #Setup Printer
-sudo nmap -sn 192.168.15.0/24
-PRINTER_IP=$(arp -n | grep f8:d0:27:ef:58:60 | awk '{print $1}')
-sudo lpadmin -p "XP-241" -E -v socket://"$PRINTER_IP" -m gutenprint.5.3://escp2-xp240/expert
+sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m gutenprint.5.3://escp2-xp240/expert
 sudo lpadmin -d "XP-241"
 
 #Setup VM
