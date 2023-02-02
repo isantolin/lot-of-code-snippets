@@ -76,7 +76,8 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo dnf -y update --refresh
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly vdpauinfo libva-vdpau-driver libva-utils NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" python-devel fedora-workstation-repositories perl-App-cpanminus seabios swtpm-tools code mkfontscale xset cairo-devel gobject-introspection-devel cairo-gobject-devel libcurl-devel
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl postgresql-server postgresql-contrib gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake kernel-devel-"$KERNEL" fedora-workstation-repositories perl-App-cpanminus seabios swtpm-tools code mkfontscale xset xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda vulkan vdpauinfo libva-vdpau-driver libva-utils
+  sudo dnf -y install python-devel cairo-devel gobject-introspection-devel cairo-gobject-devel libcurl-devel krb5-devel
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop -y
   
   # TPM for QEMU + Windows 11
@@ -87,8 +88,14 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo cat /sys/firmware/acpi/tables/MSDM > /usr/share/seabios/msdm.bin
   restorecon -R -v /usr/share/seabios/
 
+  # NVIDIA Related commands
+  sudo cp /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
+  
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog"
+  sudo grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
+  sudo grubby --update-kernel=ALL --args='video=vesafb:mtrr:3'
+
 
   # Password Prompt
   echo "Inserte Password PostgreSQL: "
