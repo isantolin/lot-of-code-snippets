@@ -84,8 +84,9 @@ elif [ "$DIST" == "Fedora" ]; then
   mkdir /tmp/myvtpm
   swtpm_setup --tpm2 --tpmstate /tmp/myvtpm --create-ek-cert --create-platform-cert
   sudo chmod 777 -R /var/lib/swtpm-localca/
-  sudo cat /sys/firmware/acpi/tables/SLIC > /usr/share/seabios/slic.bin
-  sudo cat /sys/firmware/acpi/tables/MSDM > /usr/share/seabios/msdm.bin
+  sudo ln -s /sys/firmware/acpi/tables/SLIC /usr/share/seabios/slic.bin
+  sudo ln -s /sys/firmware/acpi/tables/MSDM /usr/share/seabios/msdm.bin
+  
   restorecon -R -v /usr/share/seabios/
 
   # NVIDIA Related commands
@@ -95,22 +96,6 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog"
   sudo grubby --update-kernel=ALL --args='nvidia-drm.modeset=1'
   sudo grubby --update-kernel=ALL --args='video=vesafb:mtrr:3'
-
-
-  # Password Prompt
-  echo "Inserte Password PostgreSQL: "
-  read -r password
-
-  # Lamp Configuration
-  sudo systemctl enable postgresql
-  sudo postgresql-setup --initdb --unit postgresql
-  sudo systemctl start postgresql
-  sudo firewall-cmd --add-service={http,https,postgresql} --permanent
-  sudo firewall-cmd --reload
-  sudo echo -e "host\tall\tall\tall\tmd5\nlocal\tall\tall\ttrust" | sudo tee /var/lib/pgsql/data/pg_hba.conf
-  sudo service postgresql restart
-  su - postgres
-  psql -c "ALTER USER postgres WITH PASSWORD '$password';"
 
   sudo /usr/libexec/webmin/changepass.pl /etc/webmin root "$password"
 
