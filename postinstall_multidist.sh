@@ -104,12 +104,8 @@ else
   echo "Distro no configurada"
 fi
 
-sudo mkdir /Apache
-sudo chmod +x /Apache
-sudo touch /Apache/.htaccess
-sudo chmod -R 777 /Apache
-sudo chcon -R -t httpd_sys_content_t /Apache/
-sudo systemctl restart httpd
+# virtio-fs folder
+mkdir ~/SHARE
 
 # Web Stuff
 sudo npm install -g npm@latest cordova
@@ -139,7 +135,6 @@ cp /run/media/ignaciosantolin/KEYS/id_rsa ~/.ssh/id_rsa
 cp /run/media/ignaciosantolin/KEYS/id_rsa.pub ~/.ssh/id_rsa.pub
 sudo chmod 600 ~/.ssh/id_rs*
 ssh-add ~/.ssh/id_rsa
-
 
 #Setup Printer
 sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m gutenprint.5.3://escp2-xp240/expert
