@@ -51,6 +51,7 @@ elif [ "$DIST" == "Fedora" ]; then
   gsettings set org.gnome.desktop.sound allow-volume-above-100-percent true
   gsettings set org.gnome.desktop.datetime automatic-timezone true
   gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'br')]"
+  gsettings set org.gnome.desktop.interface show-battery-percentage true
 
   # Repository Add
   sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$OS_VERSION"/winehq.repo
