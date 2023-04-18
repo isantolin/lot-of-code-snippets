@@ -56,8 +56,8 @@ elif [ "$DIST" == "Fedora" ]; then
   # Repository Add
   sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$OS_VERSION"/winehq.repo
 
-  sudo echo -e "[Webmin]\nname=Webmin Distribution Neutral\n#baseurl=https://download.webmin.com/download/yum\nmirrorlist=https://download.webmin.com/download/yum/mirrorlist\nenabled=1\ngpgkey=http://www.webmin.com/jcameron-key.asc" | sudo tee /etc/yum.repos.d/webmin.repo
-  sudo dnf config-manager --add-repo /etc/yum.repos.d/webmin.repo
+  sudo curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
+  sudo sh setup-repos.sh
 
   # Other repository and external packages install
   sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
