@@ -90,6 +90,7 @@ elif [ "$DIST" == "Fedora" ]; then
   sudo ln -s /sys/firmware/acpi/tables/MSDM /usr/share/seabios/msdm.bin
   
   restorecon -R -v /usr/share/seabios/
+  chmod -R 777 /usr/share/seabios/*
 
   # NVIDIA Related commands
   sudo cp /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
