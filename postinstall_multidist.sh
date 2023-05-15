@@ -2,7 +2,7 @@
 # TODO: - Agregar forma de cambiar DocumentRoot
 # TODO - Rasp: https://github.com/shivasiddharth/Stremio-RaspberryPi
 
-DIST=$(awk -F= '/^NAME/{print $2}' '/etc/os-release')
+source /etc/os-release
 BITS=$(getconf LONG_BIT)
 ARCH=$(uname -m)
 
@@ -18,10 +18,9 @@ sudo echo -e 'ATTRS{name}=="ETPS/2 Elantech Touchpad", ENV{ID_INPUT}="", ENV{ID_
 sudo curl -o setup-repos.sh https://raw.githubusercontent.com/webmin/webmin/master/setup-repos.sh
 sudo sh setup-repos.sh
   
-if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
-  OS_VERSION=$(lsb_release -sc)
+if [ "$DIST" == "ubuntu" ] || [ "$DIST" == "raspbian" ]; then
 
-  if [ "$DIST" == "Raspbian GNU/Linux" ]; then
+  if [ "$DIST" == "raspbian" ]; then
     sudo rpi-update
   else
     wget https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".deb
@@ -30,7 +29,7 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   fi
 
   wget -q https://dl.winehq.org/wine-builds/winehq.key -O- | sudo apt-key add -
-  sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $OS_VERSION main"
+  sudo apt-add-repository "deb https://dl.winehq.org/wine-builds/ubuntu/ $VERSION_ID main"
 
   sudo echo "deb http://download.webmin.com/download/repository sarge contrib" | sudo tee /etc/apt/sources.list.d/webmin.list
   wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
@@ -47,8 +46,7 @@ if [ "$DIST" == "Ubuntu" ] || [ "$DIST" == "Raspbian GNU/Linux" ]; then
   sudo mysql_secure_installation
   sudo dpkg-reconfigure libdvd-pkg
 
-elif [ "$DIST" == "Fedora" ]; then
-  OS_VERSION=$(rpm -E %fedora)
+elif [ "$DIST" == "fedora" ]; then
   echo -e "fastestmirror=true\ndeltarpm=true\nmax_parallel_downloads=10" | sudo tee -a /etc/dnf/dnf.conf
   echo -e "127.0.0.1\tlocalhost $COMPUTER_ID\n::1\tlocalhost $COMPUTER_ID" | sudo tee /etc/hosts
   sudo hostnamectl set-hostname $COMPUTER_ID
@@ -58,10 +56,10 @@ elif [ "$DIST" == "Fedora" ]; then
   gsettings set org.gnome.desktop.interface show-battery-percentage true
 
   # Repository Add
-  sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$OS_VERSION"/winehq.repo
+  sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$VERSION_ID"/winehq.repo
 
   # Other repository and external packages install
-  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$OS_VERSION".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$OS_VERSION".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+  sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$VERSION_ID".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$VERSION_ID".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
   
   sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
   
