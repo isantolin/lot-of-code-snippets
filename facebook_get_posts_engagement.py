@@ -42,10 +42,14 @@ for days in range(1, days):
         if 'message' in item.keys():
             dfPosts.loc[item['id']] = [
                                         item['message'],
-                                        item['like']['summary']['total_count'],
-                                        item['wow']['summary']['total_count'],
-                                        item['love']['summary']['total_count'],
-                                        item['comments']['summary']['total_count'],
+                                        item['like']
+                                            ['summary']['total_count'],
+                                        item['wow']
+                                            ['summary']['total_count'],
+                                        item['love']
+                                            ['summary']['total_count'],
+                                        item['comments']
+                                            ['summary']['total_count'],
                                         item['created_time']]
 
     time.sleep(throttle)
