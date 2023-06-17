@@ -1,14 +1,12 @@
-import requests
 from gevent import monkey
-
-monkey.patch_all(thread=False, select=False)
 from bs4 import BeautifulSoup
 import pandas as pd
 import sqlalchemy
 import re
-import requests
 import grequests
-import io
+import requests
+
+monkey.patch_all(thread=False, select=False)
 
 request = requests.get('https://rdlist.nic.ar/rd_list/')
 soup = BeautifulSoup(request.text, 'html.parser')
@@ -49,9 +47,14 @@ for response in responses:
 df = pd.concat(lst, ignore_index=True)
 del lst
 df = df[~df.index.duplicated(keep='first')]
-df["fecha_registro"] = pd.to_datetime(df["fecha_registro"], format='%Y-%m-%d %H:%M:%S.%f')
+df["fecha_registro"] = pd.to_datetime(df["fecha_registro"],
+                                      format='%Y-%m-%d %H:%M:%S.%f')
 
-engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("mysql://" +
+                                  DB_USER + ":" +
+                                  DB_PASS + "@" +
+                                  DB_HOST + '/' +
+                                  DB_DB)
 
 dtype = {'tipo': sqlalchemy.types.CHAR(),
          'dominio': sqlalchemy.types.VARCHAR(length=170),

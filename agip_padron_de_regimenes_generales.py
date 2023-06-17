@@ -100,9 +100,14 @@ df = pd.concat(lst)
 del lst
 df = df[~df.index.duplicated(keep='first')]
 
-df["FechaDePublicacion"] = pd.to_datetime(df["FechaDePublicacion"], format='%d%m%Y')
-df["FechaVigenciaDesde"] = pd.to_datetime(df["FechaVigenciaDesde"], format='%d%m%Y')
-df["FechaVigenciaHasta"] = pd.to_datetime(df["FechaVigenciaHasta"], format='%d%m%Y')
+df["FechaDePublicacion"] = pd.to_datetime(df["FechaDePublicacion"],
+                                          format='%d%m%Y')
+
+df["FechaVigenciaDesde"] = pd.to_datetime(df["FechaVigenciaDesde"],
+                                          format='%d%m%Y')
+
+df["FechaVigenciaHasta"] = pd.to_datetime(df["FechaVigenciaHasta"],
+                                          format='%d%m%Y')
 
 df['RazonSocial'] = df['RazonSocial'].str.replace("#", " ")
 df['RazonSocial'] = df['RazonSocial'].str.strip()
@@ -111,7 +116,11 @@ df['RazonSocial'] = df['RazonSocial'].str.encode("utf-8")
 df = df.replace(r'^\s*$', pd.NA, regex=True)
 df.dropna(subset=['RazonSocial'], inplace=True)
 
-engine = sqlalchemy.create_engine("mysql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("mysql://" +
+                                  DB_USER + ":" +
+                                  DB_PASS + "@" +
+                                  DB_HOST + '/' +
+                                  DB_DB)
 
 dtype = {'CUIT': sqlalchemy.types.BIGINT(),
          'RazonSocial': sqlalchemy.types.VARCHAR(length=170),
