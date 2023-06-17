@@ -7,7 +7,11 @@ DB_USER = "postgres"
 DB_PASS = "_"
 DB_DB = "AFIP"
 
-engine = sqlalchemy.create_engine("postgresql://" + DB_USER + ":" + DB_PASS + "@" + DB_HOST + '/' + DB_DB)
+engine = sqlalchemy.create_engine("postgresql://" +
+                                  DB_USER + ":" +
+                                  DB_PASS + "@" +
+                                  DB_HOST + '/' +
+                                  DB_DB)
 header = ['CUIT',
           'Denominacion',
           'ImpuestoGanancias',
@@ -39,4 +43,7 @@ dtype = {'CUIT': sqlalchemy.types.BIGINT(),
          'ActividadMonotributo': sqlalchemy.types.INTEGER(),
          }
 
-df.to_sql('ConstanciasInscripcion', con=engine, if_exists='append', dtype=dtype)
+df.to_sql('ConstanciasInscripcion',
+          con=engine,
+          if_exists='append',
+          dtype=dtype)
