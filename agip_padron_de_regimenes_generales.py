@@ -1,8 +1,4 @@
-# https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/padrones/padron-de-regimenes-generales-
 from gevent import monkey
-
-monkey.patch_all(thread=False, select=False)
-
 import pandas as pd
 import sqlalchemy
 from bs4 import BeautifulSoup
@@ -12,6 +8,9 @@ import os
 import glob
 import requests
 import grequests
+monkey.patch_all(thread=False, select=False)
+
+# https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/padrones/padron-de-regimenes-generales-
 
 DB_HOST = "localhost"
 DB_USER = "root"
