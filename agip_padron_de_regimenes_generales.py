@@ -18,7 +18,10 @@ DB_PASS = "_"
 DB_DB = "AFIP"
 STORAGE_PATH = 'getFiles/'
 
-request = requests.get('https://www.agip.gob.ar/agentes/agentes-de-recaudacion/ib-agentes-recaudacion/padrones/padron-de-regimenes-generales-')
+request = requests.get('https://www.agip.gob.ar/'
+                       'agentes/agentes-de-recaudacion/'
+                       'ib-agentes-recaudacion/padrones/'
+                       'padron-de-regimenes-generales-')
 content = BeautifulSoup(request.text, "html.parser")
 links = content.findAll("a", href=True)
 

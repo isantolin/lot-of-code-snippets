@@ -5,6 +5,7 @@ import sqlalchemy
 import re
 import grequests
 import requests
+import io
 
 monkey.patch_all(thread=False, select=False)
 

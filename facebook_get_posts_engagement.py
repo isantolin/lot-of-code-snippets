@@ -41,7 +41,8 @@ for days in range(1, days):
     for item in content['data']:
         if 'message' in item.keys():
             dfPosts.loc[item['id']] = [
-                                        item['message'], item['like']['summary']['total_count'],
+                                        item['message'],
+                                        item['like']['summary']['total_count'],
                                         item['wow']['summary']['total_count'],
                                         item['love']['summary']['total_count'],
                                         item['comments']['summary']['total_count'],
