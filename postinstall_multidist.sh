@@ -75,7 +75,7 @@ elif [ "$DIST" == "fedora" ]; then
   sudo dnf -y update --refresh
     
   # Install Basic Packages
-  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake fedora-workstation-repositories perl-App-cpanminus seabios swtpm-tools code mkfontscale xset xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda vulkan vdpauinfo libva-vdpau-driver libva-utils gstreamer1-plugin-reqwest gstreamer1-plugin-reqwest gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-free-zbar gstreamer1-svt-av1 gstreamer1-svt-vp9
+  sudo dnf -y install webmin samba-winbind httpd gcc-c++ make winehq-devel nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake fedora-workstation-repositories perl-App-cpanminus seabios swtpm-tools code mkfontscale xset xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda vulkan vdpauinfo libva-vdpau-driver libva-utils gstreamer1-plugin-reqwest gstreamer1-plugin-reqwest gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-free-zbar gstreamer1-svt-av1 gstreamer1-svt-vp9 httpd mariadb-server php php-common php-mysqlnd php-xml php-json php-gd php-mbstring
   
   sudo dnf -y install python-devel cairo-devel gobject-introspection-devel cairo-gobject-devel libcurl-devel krb5-devel kernel-devel-"$KERNEL" libvirt-devel
   sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop -y
@@ -92,6 +92,23 @@ elif [ "$DIST" == "fedora" ]; then
 
   # NVIDIA Related commands
   sudo cp /usr/share/X11/xorg.conf.d/nvidia.conf /etc/X11/xorg.conf.d/nvidia.conf
+
+  # Apache related
+  sudo systemctl start httpd
+  sudo systemctl enable httpd
+  sudo systemctl enable mariadb 
+  sudo systemctl start mariadb 
+  sudo mkdir /Apache
+  sudo chmod +x /Apache
+  sudo touch /Apache/.htaccess
+  sudo chmod -R 777 /Apache
+  sudo chcon -R -t httpd_sys_content_t /Apache
+  sudo chcon -R -t httpd_sys_rw_content_t /Apache
+  sudo firewall-cmd --permanent --add-service=http
+  sudo firewall-cmd --permanent --add-service=https
+  sudo systemctl reload firewalld
+  sudo systemctl restart httpd
+  sudo sudo mysql_secure_installation
   
   # Performance Tweaks
   sudo grubby --update-kernel=ALL --args="processor.ignore_ppc=1 nowatchdog"
@@ -116,7 +133,7 @@ sudo cpanm App::cpanoutdated
 
 sudo echo "pip --disable-pip-version-check list --outdated --pre --format=json | python -c \"import json, sys; print('\n'.join([x['name'] for x in json.load(sys.stdin)]))\" | grep -v '^-e' | cut -d = -f 1  | xargs -n1 pip install --upgrade --pre --ignore-installed -U" | sudo tee /usr/bin/auto-upgrade-ign.sh
 sudo echo -e "dnf -y update\nflatpak update -y\ncpan-outdated -p | cpanm\nfwupdmgr get-devices\nfwupdmgr refresh --force\nfwupdmgr get-updates\nfwupdmgr update" >> /usr/bin/auto-upgrade-ign.sh
-chmod -x /usr/bin/auto-upgrade-ign.sh
+sudo chmod -x /usr/bin/auto-upgrade-ign.sh
 sudo sh /usr/bin/auto-upgrade-ign.sh
 sudo echo -e '[Unit]\nDescription=Auto Upgrade (Ignacio)\nWants=network-online.target\nAfter=network.target network-online.target\n[Service]\nExecStart=sh "/usr/bin/auto-upgrade-ign.sh"\n\n[Install]\nWantedBy=multi-user.target' | sudo tee /etc/systemd/system/auto-upgrade-ign.service
 sudo systemctl enable auto-upgrade-ign.service
