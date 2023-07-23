@@ -1,5 +1,4 @@
 #!/bin/bash
-# TODO: - Agregar forma de cambiar DocumentRoot
 # TODO - Rasp: https://github.com/shivasiddharth/Stremio-RaspberryPi
 
 source /etc/os-release
@@ -105,6 +104,7 @@ elif [ "$DIST" == "fedora" ]; then
   sudo chmod -R 777 /Apache
   sudo chcon -R -t httpd_sys_content_t /Apache
   sudo chcon -R -t httpd_sys_rw_content_t /Apache
+  sudo sed -i 's/\/var\/www\/html/\/Apache/' /etc/httpd/conf/httpd.conf
   sudo firewall-cmd --add-service={http,https} --permanent
   sudo systemctl reload firewalld
   sudo systemctl restart httpd
