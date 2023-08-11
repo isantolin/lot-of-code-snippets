@@ -56,7 +56,7 @@ elif [ "$DIST" == "fedora" ]; then
 
   # Repository Add
   sudo dnf config-manager --add-repo https://dl.winehq.org/wine-builds/fedora/"$VERSION_ID"/winehq.repo
-  sudo dnf install xset
+  sudo dnf -y install xset
 
   # Other repository and external packages install
   sudo dnf -y install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-"$VERSION_ID".noarch.rpm https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-"$VERSION_ID".noarch.rpm https://dl.google.com/linux/direct/google-chrome-beta_current_"$ARCH".rpm https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
