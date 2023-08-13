@@ -155,6 +155,10 @@ cp /run/media/ignaciosantolin/KEYS/id_rsa.pub ~/.ssh/id_rsa.pub
 sudo chmod 600 ~/.ssh/id_rs*
 ssh-add ~/.ssh/id_rsa
 
+#Signed drivers for Secure Boot
+sudo /usr/sbin/kmodgenca
+sudo mokutil --import /etc/pki/akmods/certs/public_key.der
+
 #Setup Printer
 sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m gutenprint.5.3://escp2-xp240/expert
 sudo lpadmin -d "XP-241"
