@@ -160,8 +160,8 @@ sudo /usr/sbin/kmodgenca
 sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 
 #Setup Printer
-sudo lpadmin -p "XP-241" -E -v socket://192.168.15.127 -m gutenprint.5.3://escp2-xp240/expert
-sudo lpadmin -d "XP-241"
+sudo lpadmin -p "L3250" -E -v dnssd://EPSON%20L3250%20Series._ipp._tcp.local/ -m everywhere
+sudo lpadmin -d "L3250"
 
 #Setup VM
 wget https://raw.githubusercontent.com/isantolin/os-templates-and-setup/main/qemu-win11.xml
