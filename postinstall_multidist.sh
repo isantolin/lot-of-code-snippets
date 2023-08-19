@@ -79,7 +79,7 @@ elif [ "$DIST" == "fedora" ]; then
   sudo dnf -y install https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
   
   sudo dnf -y install python-devel cairo-devel gobject-introspection-devel cairo-gobject-devel libcurl-devel krb5-devel kernel-devel-"$KERNEL" libvirt-devel
-  sudo flatpak install flathub io.dbeaver.DBeaverCommunity org.telegram.desktop -y
+  sudo flatpak -y install flathub io.dbeaver.DBeaverCommunity
   
   # TPM for QEMU + Windows 11
   mkdir /tmp/myvtpm
@@ -155,14 +155,14 @@ cp /run/media/ignaciosantolin/KEYS/id_rsa.pub ~/.ssh/id_rsa.pub
 sudo chmod 600 ~/.ssh/id_rs*
 ssh-add ~/.ssh/id_rsa
 
-#Signed drivers for Secure Boot
+# Signed drivers for Secure Boot
 sudo /usr/sbin/kmodgenca
 sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 
-#Setup Printer
+# Setup Printer
 sudo lpadmin -p "L3250" -E -v dnssd://EPSON%20L3250%20Series._ipp._tcp.local/ -m everywhere
 sudo lpadmin -d "L3250"
 
-#Setup VM
+# Setup VM
 wget https://raw.githubusercontent.com/isantolin/os-templates-and-setup/main/qemu-win11.xml
 sudo virsh create qemu-win11.xml
