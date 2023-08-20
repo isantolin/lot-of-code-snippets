@@ -78,7 +78,7 @@ elif [ "$DIST" == "fedora" ]; then
   
   # TPM for QEMU + Windows 11
   mkdir /tmp/myvtpm
-  swtpm_setup --tpm2 --tpmstate /tmp/myvtpm --create-ek-cert --create-platform-cert
+  sudo swtpm_setup --tpm2 --tpmstate /tmp/myvtpm --create-ek-cert --create-platform-cert
   sudo chmod 777 -R /var/lib/swtpm-localca/
   sudo ln -s /sys/firmware/acpi/tables/SLIC /usr/share/seabios/slic.bin
   sudo ln -s /sys/firmware/acpi/tables/MSDM /usr/share/seabios/msdm.bin
