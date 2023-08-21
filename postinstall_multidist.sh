@@ -66,7 +66,7 @@ elif [ "$DIST" == "fedora" ]; then
   sudo dnf -y update --refresh
 
   # Remove conflicting packages
-  sudo dnf -y remove libswscale-free
+  sudo dnf -y remove libswscale-free ffmpeg-free
     
   # Install Basic Packages
   sudo dnf -y install webmin httpd gcc-c++ make nodejs cups-pdf cups-lpd cabextract lzip p7zip p7zip-plugins unrar alsa-plugins-pulseaudio libcurl gstreamer1-plugin-openh264 gstreamer1-plugins-bad-free-extras gstreamer1-plugins-bad-free-fluidsynth gstreamer1-plugins-bad-free-wildmidi gstreamer1-plugins-bad-freeworld gstreamer1-plugins-base-tools gstreamer1-plugins-entrans gstreamer1-plugins-fc gstreamer1-plugins-good-extras gstreamer1-rtsp-server gstreamer1-vaapi gstreamer1-plugins-ugly NetworkManager-fortisslvpn-gnome NetworkManager-iodine-gnome NetworkManager-l2tp-gnome NetworkManager-libreswan-gnome NetworkManager-sstp-gnome NetworkManager-strongswan-gnome epson-inkjet-printer-escpr2 NetworkManager-ovs gstreamer1-libav gcc-gfortran cmake fedora-workstation-repositories perl-App-cpanminus seabios swtpm-tools code mkfontscale xset xorg-x11-drv-nvidia-390xx akmod-nvidia-390xx xorg-x11-drv-nvidia-390xx-cuda vulkan vdpauinfo libva-vdpau-driver libva-utils gstreamer1-plugin-reqwest gstreamer1-plugin-reqwest gstreamer1-plugins-bad-freeworld gstreamer1-plugins-bad-free-zbar gstreamer1-svt-av1 gstreamer1-svt-vp9 httpd mariadb-server php php-common php-mysqlnd php-xml php-json php-gd php-mbstring php-pecl-imagick php-opcache php-pecl-ssh2 php-tidy nvidia-vaapi-driver ffmpeg
