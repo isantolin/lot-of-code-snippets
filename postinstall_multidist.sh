@@ -123,7 +123,7 @@ mkdir ~/SHARE
 
 # Web Stuff
 sudo npm install -g npm@latest cordova
-sudo pip3 install pip wheel --upgrade --pre
+sudo pip3 install pip wheel debugpy pytest --upgrade --pre
 
 # Perl Upgrade
 sudo cpanm App::cpanoutdated
