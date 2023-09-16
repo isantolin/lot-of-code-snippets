@@ -73,7 +73,7 @@ elif [ "$DIST" == "fedora" ]; then
 
   sudo dnf -y install https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
   
-  sudo dnf -y install python-devel cairo-devel gobject-introspection-devel cairo-gobject-devel libcurl-devel krb5-devel kernel-devel-"$KERNEL" libvirt-devel
+  sudo dnf -y install python-devel cairo-devel gobject-introspection-devel cairo-gobject-devel libcurl-devel krb5-devel kernel-devel-"$KERNEL" libvirt-devel pcsc-lite-devel libdb-devel
   sudo flatpak -y install flathub io.dbeaver.DBeaverCommunity
   
   # TPM for QEMU + Windows 11
